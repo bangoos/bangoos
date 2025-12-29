@@ -7,6 +7,14 @@
       "content": "qwerty",
       "image": "https://images.unsplash.com/photo-1767034157424?w=800&h=600&fit=crop",
       "date": "30/12/2025"
+    },
+    {
+      "id": "blog-1767034306013-37bl3v",
+      "title": "12345",
+      "slug": "artikel-12345",
+      "content": "wqewqewqe",
+      "image": "https://images.unsplash.com/photo-1767034306013?w=800&h=600&fit=crop&auto=format",
+      "date": "30/12/2025"
     }
   ],
   "portfolio": [
