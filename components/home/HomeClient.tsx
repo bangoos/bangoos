@@ -25,8 +25,8 @@ export default function HomeClient({ db }: { db: Database }) {
     <PageLayout>
       <section id="beranda" className="relative min-h-[60vh] flex items-center">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <motion.div animate={{ y: [0, -50, 0], opacity: [0.18, 0.45, 0.18] }} transition={{ duration: 7, repeat: Infinity }} className="absolute top-20 left-10 w-72 h-72 bg-green-500 rounded-full blur-3xl mix-blend-screen" />
-          <motion.div animate={{ y: [0, 50, 0], opacity: [0.18, 0.45, 0.18] }} transition={{ duration: 8, repeat: Infinity }} className="absolute top-40 right-10 w-96 h-96 bg-green-200 rounded-full blur-3xl mix-blend-screen" />
+          <motion.div animate={{ y: [0, -50, 0], opacity: [0.18, 0.45, 0.18] }} transition={{ duration: 7, repeat: Infinity }} className="absolute top-20 left-10 w-72 h-72 bg-cyan-500 rounded-full blur-3xl mix-blend-screen" />
+          <motion.div animate={{ y: [0, 50, 0], opacity: [0.18, 0.45, 0.18] }} transition={{ duration: 8, repeat: Infinity }} className="absolute top-40 right-10 w-96 h-96 bg-blue-200 rounded-full blur-3xl mix-blend-screen" />
         </div>
         <div className={contentWrapper + " relative z-10 grid md:grid-cols-2 gap-8 items-center"}>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
@@ -45,11 +45,11 @@ export default function HomeClient({ db }: { db: Database }) {
               </a>
             </div>
             <div className="flex items-center gap-6 mt-6 text-sm">
-              <div className="flex items-center gap-2 text-green-400">
-                <span className="w-2 h-2 rounded-full bg-green-400" /> Gratis Hosting
+              <div className="flex items-center gap-2 text-cyan-400">
+                <span className="w-2 h-2 rounded-full bg-cyan-400" /> Gratis Hosting
               </div>
-              <div className="flex items-center gap-2 text-green-400">
-                <span className="w-2 h-2 rounded-full bg-green-400" /> Garansi SEO
+              <div className="flex items-center gap-2 text-cyan-400">
+                <span className="w-2 h-2 rounded-full bg-cyan-400" /> Garansi SEO
               </div>
             </div>
           </motion.div>
@@ -75,7 +75,7 @@ export default function HomeClient({ db }: { db: Database }) {
                 transition={{ delay: i * 0.1 }}
                 className="cloud-panel p-8 rounded-2xl text-center hover:shadow-lg transition-shadow"
               >
-                <div className="w-16 h-16 mx-auto bg-green-50 rounded-2xl flex items-center justify-center mb-6 text-green-500">
+                <div className="w-16 h-16 mx-auto bg-cyan-50 rounded-2xl flex items-center justify-center mb-6 text-cyan-500">
                   <f.icon size={32} />
                 </div>
                 <h3 className="text-xl font-bold mb-3 text-slate-800">{f.t}</h3>
