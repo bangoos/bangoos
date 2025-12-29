@@ -23,12 +23,12 @@ export default function HomeClient({ db }: { db: Database }) {
 
   return (
     <PageLayout>
-      <section id="beranda" className="relative min-h-[85vh] flex items-center">
+      <section id="beranda" className="relative min-h-[60vh] flex items-center">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <motion.div animate={{ y: [0, -50, 0], opacity: [0.18, 0.45, 0.18] }} transition={{ duration: 7, repeat: Infinity }} className="absolute top-20 left-10 w-72 h-72 bg-green-500 rounded-full blur-3xl mix-blend-screen" />
           <motion.div animate={{ y: [0, 50, 0], opacity: [0.18, 0.45, 0.18] }} transition={{ duration: 8, repeat: Infinity }} className="absolute top-40 right-10 w-96 h-96 bg-green-200 rounded-full blur-3xl mix-blend-screen" />
         </div>
-        <div className={contentWrapper + " relative z-10 grid md:grid-cols-2 gap-12 items-center"}>
+        <div className={contentWrapper + " relative z-10 grid md:grid-cols-2 gap-8 items-center"}>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
             <span className="inline-flex items-center gap-2 text-cyan-300 font-bold tracking-widest text-xs uppercase mb-4 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20">#1 Agensi Digital di Karawang</span>
             <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-6 text-white">
@@ -56,7 +56,7 @@ export default function HomeClient({ db }: { db: Database }) {
         </div>
       </section>
 
-      <section id="layanan" className="py-12">
+      <section id="layanan" className="py-8">
         <div className={contentWrapper}>
           <h2 className="text-3xl font-bold mb-12 text-center">
             Mengapa <span className="text-green-600">BangOos?</span>
@@ -86,9 +86,9 @@ export default function HomeClient({ db }: { db: Database }) {
         </div>
       </section>
 
-      <section id="portofolio" className="py-12">
+      <section id="portofolio" className="py-8">
         <div className={contentWrapper}>
-          <div className="flex justify-between items-end mb-12">
+          <div className="flex justify-between items-end mb-8">
             <div>
               <h2 className="text-3xl font-bold">
                 Karya <span className="text-cyan-400">Terbaru</span>
@@ -167,9 +167,9 @@ export default function HomeClient({ db }: { db: Database }) {
         </div>
       </section>
 
-      <section id="blog" className="py-12">
+      <section id="blog" className="py-8">
         <div className={contentWrapper}>
-          <div className="flex justify-between items-end mb-12">
+          <div className="flex justify-between items-end mb-8">
             <div>
               <h2 className="text-3xl font-bold">
                 Artikel <span className="text-cyan-400">& Tips</span>
@@ -244,9 +244,9 @@ export default function HomeClient({ db }: { db: Database }) {
         </div>
       </section>
 
-      <section id="pricing" className="py-12">
+      <section id="pricing" className="py-8">
         <div className={contentWrapper}>
-          <h2 className="text-3xl font-bold mb-12 text-center">
+          <h2 className="text-3xl font-bold mb-8 text-center">
             Investasi <span className="text-cyan-400">Terbaik</span>
           </h2>
           <div className="grid md:grid-cols-3 gap-8 items-center">
