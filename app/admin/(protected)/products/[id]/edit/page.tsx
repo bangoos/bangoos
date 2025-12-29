@@ -6,17 +6,38 @@ import { ArrowLeft, Save, Package, DollarSign } from "lucide-react";
 import Link from "next/link";
 
 export default async function EditProductPage({ params }: { params: { id: string } }) {
+  // Force fresh database read
   const db: Database = await getDatabase();
 
   // Debug: Log untuk melihat ID yang dicari dan ID yang ada
-  console.log("Products - Looking for ID:", params.id);
+  console.log("=== PRODUCTS EDIT DEBUG ===");
+  console.log("Looking for ID:", params.id);
+  console.log("Type of params.id:", typeof params.id);
   console.log(
-    "Products - Available IDs:",
-    db.products.map((p) => p.id)
+    "Available IDs:",
+    db.products.map((p) => ({ id: p.id, type: typeof p.id }))
   );
+  console.log("Total products items:", db.products.length);
   console.log("Products items:", db.products);
 
-  const product = db.products.find((p) => p.id === params.id);
+  // Try multiple ID matching approaches
+  let product = null;
+
+  // Method 1: Strict string comparison
+  product = db.products.find((p) => p.id === params.id);
+  console.log("Method 1 result:", product ? "FOUND" : "NOT FOUND");
+
+  // Method 2: String conversion comparison
+  if (!product) {
+    product = db.products.find((p) => String(p.id) === String(params.id));
+    console.log("Method 2 result:", product ? "FOUND" : "NOT FOUND");
+  }
+
+  // Method 3: Contains comparison (for partial matches)
+  if (!product) {
+    product = db.products.find((p) => String(p.id).includes(String(params.id)));
+    console.log("Method 3 result:", product ? "FOUND" : "NOT FOUND");
+  }
 
   if (!product) {
     return (

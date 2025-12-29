@@ -6,17 +6,38 @@ import { ArrowLeft, Save, FileText } from "lucide-react";
 import Link from "next/link";
 
 export default async function EditBlogPage({ params }: { params: { id: string } }) {
+  // Force fresh database read
   const db: Database = await getDatabase();
 
   // Debug: Log untuk melihat ID yang dicari dan ID yang ada
+  console.log("=== BLOG EDIT DEBUG ===");
   console.log("Looking for ID:", params.id);
+  console.log("Type of params.id:", typeof params.id);
   console.log(
     "Available IDs:",
-    db.blog.map((p) => p.id)
+    db.blog.map((p) => ({ id: p.id, type: typeof p.id }))
   );
+  console.log("Total blog items:", db.blog.length);
   console.log("Blog items:", db.blog);
 
-  const post = db.blog.find((p) => p.id === params.id);
+  // Try multiple ID matching approaches
+  let post = null;
+
+  // Method 1: Strict string comparison
+  post = db.blog.find((p) => p.id === params.id);
+  console.log("Method 1 result:", post ? "FOUND" : "NOT FOUND");
+
+  // Method 2: String conversion comparison
+  if (!post) {
+    post = db.blog.find((p) => String(p.id) === String(params.id));
+    console.log("Method 2 result:", post ? "FOUND" : "NOT FOUND");
+  }
+
+  // Method 3: Contains comparison (for partial matches)
+  if (!post) {
+    post = db.blog.find((p) => String(p.id).includes(String(params.id)));
+    console.log("Method 3 result:", post ? "FOUND" : "NOT FOUND");
+  }
 
   if (!post) {
     return (

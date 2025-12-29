@@ -6,17 +6,38 @@ import { ArrowLeft, Save, Briefcase } from "lucide-react";
 import Link from "next/link";
 
 export default async function EditPortfolioPage({ params }: { params: { id: string } }) {
+  // Force fresh database read
   const db: Database = await getDatabase();
 
   // Debug: Log untuk melihat ID yang dicari dan ID yang ada
-  console.log("Portfolio - Looking for ID:", params.id);
+  console.log("=== PORTFOLIO EDIT DEBUG ===");
+  console.log("Looking for ID:", params.id);
+  console.log("Type of params.id:", typeof params.id);
   console.log(
-    "Portfolio - Available IDs:",
-    db.portfolio.map((p) => p.id)
+    "Available IDs:",
+    db.portfolio.map((p) => ({ id: p.id, type: typeof p.id }))
   );
+  console.log("Total portfolio items:", db.portfolio.length);
   console.log("Portfolio items:", db.portfolio);
 
-  const item = db.portfolio.find((p) => p.id === params.id);
+  // Try multiple ID matching approaches
+  let item = null;
+
+  // Method 1: Strict string comparison
+  item = db.portfolio.find((p) => p.id === params.id);
+  console.log("Method 1 result:", item ? "FOUND" : "NOT FOUND");
+
+  // Method 2: String conversion comparison
+  if (!item) {
+    item = db.portfolio.find((p) => String(p.id) === String(params.id));
+    console.log("Method 2 result:", item ? "FOUND" : "NOT FOUND");
+  }
+
+  // Method 3: Contains comparison (for partial matches)
+  if (!item) {
+    item = db.portfolio.find((p) => String(p.id).includes(String(params.id)));
+    console.log("Method 3 result:", item ? "FOUND" : "NOT FOUND");
+  }
 
   if (!item) {
     return (
