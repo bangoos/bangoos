@@ -3,7 +3,6 @@ import type { Database } from "@/lib/types";
 import { ArrowLeft, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import PageLayout from "@/components/PageLayout";
-import PortfolioModal from "@/components/modals/PortfolioModal";
 
 export const revalidate = 0; // Disable caching for this page
 
@@ -47,9 +46,9 @@ export default async function PortfolioPage() {
                 <span className="inline-block text-xs font-bold text-cyan-400 uppercase tracking-wider mb-2">{item.category}</span>
                 <h3 className="text-lg font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors">{item.title}</h3>
                 <p className="text-gray-400 text-sm line-clamp-3 mb-4">{item.description}</p>
-                <button className="inline-flex items-center gap-2 text-sm font-semibold text-cyan-400 hover:text-cyan-300 transition-colors">
-                  Lihat Detail <ExternalLink size={16} />
-                </button>
+                <div className="inline-flex items-center gap-2 text-sm font-semibold text-cyan-400">
+                  <ExternalLink size={16} /> Portfolio Detail
+                </div>
               </div>
             </div>
           ))}
@@ -62,8 +61,6 @@ export default async function PortfolioPage() {
             <p className="text-gray-400">Portofolio akan segera ditambahkan. Silakan kembali lagi nanti.</p>
           </div>
         )}
-
-        <PortfolioModal open={false} onClose={() => {}} item={null} />
       </div>
     </PageLayout>
   );
