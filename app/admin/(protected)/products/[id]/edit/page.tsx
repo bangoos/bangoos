@@ -20,23 +20,32 @@ export default async function EditProductPage({ params }: { params: { id: string
   console.log("Total products items:", db.products.length);
   console.log("Products items:", db.products);
 
-  // Try multiple ID matching approaches
+  // Simplified ID matching - try all possible methods
   let product = null;
 
-  // Method 1: Strict string comparison
+  // Method 1: Direct string comparison
   product = db.products.find((p) => p.id === params.id);
-  console.log("Method 1 result:", product ? "FOUND" : "NOT FOUND");
+  console.log("Method 1 (direct):", product ? "FOUND" : "NOT FOUND");
 
-  // Method 2: String conversion comparison
+  // Method 2: String conversion
   if (!product) {
     product = db.products.find((p) => String(p.id) === String(params.id));
-    console.log("Method 2 result:", product ? "FOUND" : "NOT FOUND");
+    console.log("Method 2 (string):", product ? "FOUND" : "NOT FOUND");
   }
 
-  // Method 3: Contains comparison (for partial matches)
+  // Method 3: Contains match (for partial matching)
   if (!product) {
-    product = db.products.find((p) => String(p.id).includes(String(params.id)));
-    console.log("Method 3 result:", product ? "FOUND" : "NOT FOUND");
+    product = db.products.find((p) => String(p.id).includes(String(params.id)) || String(params.id).includes(String(p.id)));
+    console.log("Method 3 (contains):", product ? "FOUND" : "NOT FOUND");
+  }
+
+  // Method 4: Number comparison (if IDs are numbers)
+  if (!product) {
+    const paramNum = Number(params.id);
+    if (!isNaN(paramNum)) {
+      product = db.products.find((p) => Number(p.id) === paramNum);
+      console.log("Method 4 (number):", product ? "FOUND" : "NOT FOUND");
+    }
   }
 
   if (!product) {

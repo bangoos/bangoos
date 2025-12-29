@@ -144,11 +144,14 @@ async function saveByType(formData: FormData, type: "blog" | "portfolio" | "prod
     }
 
     await saveDatabase(db);
-    revalidatePath("/");
-    revalidatePath("/admin");
-    revalidatePath("/blog");
-    revalidatePath("/portofolio");
-    revalidatePath("/products");
+
+    // Force revalidate all paths to ensure immediate updates
+    const paths = ["/", "/admin", "/blog", "/portofolio", "/products"];
+    for (const path of paths) {
+      revalidatePath(path);
+    }
+
+    console.log("Database saved and revalidated paths:", paths);
     return { message: "Data Disimpan" };
   } catch (e) {
     console.error(e);
@@ -179,11 +182,14 @@ export async function deleteItem(...args: any[]) {
     else if (type === "products") db.products = db.products.filter((i) => i.id !== id);
 
     await saveDatabase(db);
-    revalidatePath("/");
-    revalidatePath("/admin");
-    revalidatePath("/blog");
-    revalidatePath("/portofolio");
-    revalidatePath("/products");
+
+    // Force revalidate all paths to ensure immediate updates
+    const paths = ["/", "/admin", "/blog", "/portofolio", "/products"];
+    for (const path of paths) {
+      revalidatePath(path);
+    }
+
+    console.log("Database updated (deleted) and revalidated paths:", paths);
     return { message: "Data dihapus" };
   } catch (e) {
     console.error("Gagal menghapus item", e);
@@ -269,11 +275,14 @@ export async function updateItem(...args: any[]) {
     }
 
     await saveDatabase(db);
-    revalidatePath("/");
-    revalidatePath("/admin");
-    revalidatePath("/blog");
-    revalidatePath("/portofolio");
-    revalidatePath("/products");
+
+    // Force revalidate all paths to ensure immediate updates
+    const paths = ["/", "/admin", "/blog", "/portofolio", "/products"];
+    for (const path of paths) {
+      revalidatePath(path);
+    }
+
+    console.log("Database updated and revalidated paths:", paths);
     return { message: "Data diperbarui" };
   } catch (e) {
     console.error("Gagal memperbarui item", e);

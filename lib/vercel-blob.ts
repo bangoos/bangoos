@@ -11,8 +11,20 @@ export async function getDatabase(): Promise<Database> {
     const { blobs } = await list({ prefix: DB_FILENAME });
     if (blobs.length > 0) {
       const blob = blobs[0];
-      const res = await fetch(blob.url);
-      return await res.json();
+      // Add cache-busting timestamp
+      const cacheBustUrl = `${blob.url}?t=${Date.now()}`;
+      console.log("Fetching database with cache bust:", cacheBustUrl);
+      const res = await fetch(cacheBustUrl);
+      if (!res.ok) {
+        throw new Error(`Failed to fetch database: ${res.status}`);
+      }
+      const data = await res.json();
+      console.log("Database loaded successfully, items:", {
+        blog: data.blog?.length || 0,
+        portfolio: data.portfolio?.length || 0,
+        products: data.products?.length || 0,
+      });
+      return data;
     }
   } catch (e) {
     console.error("Failed to list blobs, falling back to local DB", e);
@@ -136,7 +148,13 @@ function getDefaultData(): Database {
 
 export async function saveDatabase(data: Database): Promise<void> {
   try {
-    await put(DB_FILENAME, JSON.stringify(data, null, 2), { access: "public", contentType: "application/json", allowOverwrite: true });
+    const result = await put(DB_FILENAME, JSON.stringify(data, null, 2), { access: "public", contentType: "application/json", allowOverwrite: true });
+    console.log("Database saved successfully to Vercel Blob:", result.url);
+
+    // Force cache invalidation by adding timestamp to URL
+    const timestamp = Date.now();
+    console.log(`Database saved at timestamp: ${timestamp}`);
+
     return;
   } catch (e) {
     console.error("Vercel Blob save failed, writing local DB file", e);
@@ -145,6 +163,7 @@ export async function saveDatabase(data: Database): Promise<void> {
   // local fallback
   try {
     await fs.writeFile(LOCAL_DB_PATH, JSON.stringify(data, null, 2), "utf-8");
+    console.log("Database saved to local file:", LOCAL_DB_PATH);
   } catch (e) {
     console.error("Failed to write local DB file", e);
     throw e;
