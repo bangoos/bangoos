@@ -45,12 +45,7 @@ export default function SiteHeader() {
             </a>
           </nav>
 
-          <button
-            aria-label="Toggle theme"
-            title="Toggle theme"
-            onClick={toggleTheme}
-            className="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-white/10 text-white hover:bg-white/20 transition"
-          >
+          <button aria-label="Toggle theme" title="Toggle theme" onClick={toggleTheme} className="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-white/10 text-white hover:bg-white/20 transition">
             {theme === "dark" ? "☀️" : "🌙"}
           </button>
         </div>
