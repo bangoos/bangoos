@@ -6,6 +6,13 @@ import { put } from "@vercel/blob";
 import { revalidatePath } from "next/cache";
 import { getDatabase, saveDatabase } from "@/lib/vercel-blob";
 
+// Better ID generation function
+function generateId(prefix: string = ""): string {
+  const timestamp = Date.now();
+  const random = Math.random().toString(36).substring(2, 8);
+  return prefix ? `${prefix}-${timestamp}-${random}` : `${timestamp}-${random}`;
+}
+
 function slugify(input: string) {
   return (
     input
@@ -95,7 +102,7 @@ async function saveByType(formData: FormData, type: "blog" | "portfolio" | "prod
       }
 
       db.blog.push({
-        id: Date.now().toString(),
+        id: generateId("blog"),
         title,
         slug: finalSlug,
         content: formData.get("content") as string,
@@ -115,12 +122,12 @@ async function saveByType(formData: FormData, type: "blog" | "portfolio" | "prod
       }
 
       db.portfolio.push({
-        id: Date.now().toString(),
+        id: generateId("portfolio"),
         title,
+        slug: finalSlug,
         description: formData.get("description") as string,
         category: formData.get("category") as "UMKM" | "Skripsi" | "Kantor",
         image: url,
-        slug: finalSlug,
       });
     } else if (type === "products") {
       const raw = (formData.get("features") as string) || "";
@@ -129,7 +136,7 @@ async function saveByType(formData: FormData, type: "blog" | "portfolio" | "prod
         .map((f) => f.trim())
         .filter((f) => f !== "");
       db.products.push({
-        id: Date.now().toString(),
+        id: generateId("product"),
         name: formData.get("name") as string,
         price: formData.get("price") as string,
         features: feats,

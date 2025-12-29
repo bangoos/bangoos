@@ -26,11 +26,21 @@ export async function getDatabase(): Promise<Database> {
     // If database exists but portfolio/products are empty, add default content
     if (parsedData.portfolio.length === 0 || parsedData.products.length === 0) {
       const defaultData = getDefaultData();
-      return {
+      const updatedData = {
         blog: parsedData.blog,
         portfolio: parsedData.portfolio.length > 0 ? parsedData.portfolio : defaultData.portfolio,
         products: parsedData.products.length > 0 ? parsedData.products : defaultData.products,
       };
+
+      // Auto-save the updated data with defaults
+      try {
+        await saveDatabase(updatedData);
+        console.log("Auto-saved default data to database");
+      } catch (e) {
+        console.error("Failed to auto-save default data", e);
+      }
+
+      return updatedData;
     }
 
     return parsedData;
@@ -38,7 +48,17 @@ export async function getDatabase(): Promise<Database> {
     // ignore and return empty with defaults
   }
 
-  return getDefaultData();
+  const defaultData = getDefaultData();
+
+  // Auto-save default data if database is completely empty
+  try {
+    await saveDatabase(defaultData);
+    console.log("Auto-saved initial default data to database");
+  } catch (e) {
+    console.error("Failed to auto-save initial default data", e);
+  }
+
+  return defaultData;
 }
 
 function getDefaultData(): Database {
