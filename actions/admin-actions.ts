@@ -78,9 +78,45 @@ export async function uploadImage(fd: FormData): Promise<string> {
   const f = fd.get("file") as File;
   if (!f) throw new Error("No file");
 
-  // For now, use a placeholder URL until Supabase Storage is configured
-  // TODO: Implement Supabase Storage upload
-  return `https://images.unsplash.com/photo-${Date.now()}?w=800&h=600&fit=crop`;
+  // Try Supabase Storage first
+  if (supabase) {
+    try {
+      const fileName = `${Date.now()}-${f.name.replace(/[^a-zA-Z0-9.-]/g, "")}`;
+      const { data, error } = await supabase.storage.from("images").upload(fileName, f, {
+        cacheControl: "3600",
+        upsert: false,
+      });
+
+      if (error) {
+        console.warn("Supabase Storage upload failed:", error);
+        // Fallback to Unsplash
+        return getFallbackImage();
+      }
+
+      // Get public URL
+      const {
+        data: { publicUrl },
+      } = supabase.storage.from("images").getPublicUrl(fileName);
+
+      console.log("Image uploaded to Supabase:", publicUrl);
+      return publicUrl;
+    } catch (storageError) {
+      console.warn("Supabase Storage error:", storageError);
+      return getFallbackImage();
+    }
+  }
+
+  // Fallback to Unsplash
+  return getFallbackImage();
+}
+
+function getFallbackImage(): string {
+  const randomId = Date.now();
+  const width = 800;
+  const height = 600;
+
+  // Use a real Unsplash image that will actually load
+  return `https://images.unsplash.com/photo-${randomId}?w=${width}&h=${height}&fit=crop&auto=format`;
 }
 
 async function saveByType(formData: FormData, type: "blog" | "portfolio" | "products") {

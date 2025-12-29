@@ -1,5 +1,14 @@
 {
-  "blog": [],
+  "blog": [
+    {
+      "id": "blog-1767034157425-p4rbxe",
+      "title": "tes blog",
+      "slug": "artikel-tes-blog",
+      "content": "qwerty",
+      "image": "https://images.unsplash.com/photo-1767034157424?w=800&h=600&fit=crop",
+      "date": "30/12/2025"
+    }
+  ],
   "portfolio": [
     {
       "id": "portfolio-1",
