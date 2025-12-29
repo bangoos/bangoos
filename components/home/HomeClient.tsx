@@ -66,7 +66,7 @@ export default function HomeClient({ db }: { db: Database }) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="bg-slate-900/50 backdrop-blur-sm border border-white/5 p-8 rounded-2xl text-center hover:border-cyan-500/30 transition-colors"
+                className="cloud-panel p-8 rounded-2xl text-center hover:shadow-lg transition-shadow"
               >
                 <div className="w-16 h-16 mx-auto bg-blue-500/10 rounded-2xl flex items-center justify-center mb-6 text-blue-400">
                   <f.icon size={32} />
@@ -97,7 +97,7 @@ export default function HomeClient({ db }: { db: Database }) {
                   setModalType("portfolio");
                   setSelectedItem(item);
                 }}
-                className="group bg-slate-900 border border-white/5 rounded-2xl overflow-hidden hover:-translate-y-2 transition-transform duration-300 text-left w-full"
+                className="group cloud-panel overflow-hidden hover:-translate-y-2 transition-transform duration-300 text-left w-full"
               >
                 <div className="relative h-56 overflow-hidden">
                   <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
@@ -135,7 +135,7 @@ export default function HomeClient({ db }: { db: Database }) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="group bg-slate-900 border border-white/5 rounded-2xl overflow-hidden hover:border-blue-500/30 transition-all hover:-translate-y-1"
+                className="group cloud-panel overflow-hidden hover:shadow-lg transition-all hover:-translate-y-1"
               >
                 <div className="relative h-64 overflow-hidden">
                   <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
@@ -192,7 +192,7 @@ export default function HomeClient({ db }: { db: Database }) {
               item={modalType === "product" ? selectedItem : null}
             />
             {db.products.map((p, i) => (
-              <div key={p.id} className={`p-8 rounded-3xl border ${i === 1 ? "bg-gradient-to-b from-blue-900/20 to-slate-900 border-blue-500/50 shadow-2xl shadow-blue-900/20 scale-105" : "bg-slate-900 border-white/5"}`}>
+              <div key={p.id} className={`rounded-3xl ${i === 1 ? "p-8 bg-gradient-to-b from-blue-900/20 to-slate-900 border-blue-500/50 shadow-2xl shadow-blue-900/20 scale-105" : "cloud-panel"}`}>
                 {i === 1 && <div className="text-center mb-4 text-blue-400 font-bold text-xs uppercase tracking-wider">Paling Populer</div>}
                 <h3 className="text-xl font-bold mb-2">{p.name}</h3>
                 <div className="text-3xl font-bold mb-4 text-white">{p.price}</div>
@@ -208,7 +208,7 @@ export default function HomeClient({ db }: { db: Database }) {
                     setModalType("product");
                     setSelectedItem(p);
                   }}
-                  className={`block w-full text-center py-3 rounded-xl font-bold transition-colors ${i === 1 ? "bg-white text-blue-900 hover:bg-gray-100" : "bg-slate-800 text-white hover:bg-slate-700"}`}
+                  className={`block w-full text-center py-3 rounded-xl font-bold transition-colors ${i === 1 ? "btn btn-primary" : "btn"}`}
                 >
                   Pilih Paket
                 </button>

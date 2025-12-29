@@ -31,14 +31,14 @@ export default function DeleteForm({ action, type, id }: { action: ServerAction;
       {open && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
           <div className="absolute inset-0 bg-black/50" onClick={() => setOpen(false)} />
-          <div className="relative bg-slate-900 p-6 rounded-xl border border-slate-700 w-full max-w-md z-10">
-            <h3 className="text-lg font-bold text-white mb-2">Konfirmasi Hapus</h3>
-            <p className="text-sm text-slate-300 mb-4">Yakin ingin menghapus data ini? Aksi ini tidak dapat dikembalikan.</p>
+          <div className="relative p-6 rounded-xl w-full max-w-md z-10 cloud-panel">
+            <h3 className="text-lg font-bold mb-2">Konfirmasi Hapus</h3>
+            <p className="text-sm text-slate-600 mb-4">Yakin ingin menghapus data ini? Aksi ini tidak dapat dikembalikan.</p>
             <div className="flex justify-end gap-3">
-              <button onClick={() => setOpen(false)} className="px-4 py-2 rounded-lg bg-slate-700 text-slate-200">
+              <button onClick={() => setOpen(false)} className="px-4 py-2 rounded-lg btn">
                 Batal
               </button>
-              <button onClick={onConfirm} className="px-4 py-2 rounded-lg bg-red-600 text-white">
+              <button onClick={onConfirm} className="px-4 py-2 rounded-lg btn btn-danger">
                 Hapus
               </button>
             </div>
