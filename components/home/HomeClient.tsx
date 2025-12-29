@@ -23,7 +23,7 @@ export default function HomeClient({ db }: { db: Database }) {
 
   return (
     <PageLayout>
-      <section id="beranda" className="relative min-h-screen flex items-center">
+      <section id="beranda" className="relative min-h-[85vh] flex items-center">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <motion.div animate={{ y: [0, -50, 0], opacity: [0.18, 0.45, 0.18] }} transition={{ duration: 7, repeat: Infinity }} className="absolute top-20 left-10 w-72 h-72 bg-green-500 rounded-full blur-3xl mix-blend-screen" />
           <motion.div animate={{ y: [0, 50, 0], opacity: [0.18, 0.45, 0.18] }} transition={{ duration: 8, repeat: Infinity }} className="absolute top-40 right-10 w-96 h-96 bg-green-200 rounded-full blur-3xl mix-blend-screen" />
@@ -56,7 +56,7 @@ export default function HomeClient({ db }: { db: Database }) {
         </div>
       </section>
 
-      <section id="layanan" className="py-20">
+      <section id="layanan" className="py-16">
         <div className={contentWrapper}>
           <h2 className="text-3xl font-bold mb-12 text-center">
             Mengapa <span className="text-green-600">BangOos?</span>
@@ -86,7 +86,7 @@ export default function HomeClient({ db }: { db: Database }) {
         </div>
       </section>
 
-      <section id="portofolio" className="py-20">
+      <section id="portofolio" className="py-16">
         <div className={contentWrapper}>
           <div className="flex justify-between items-end mb-12">
             <div>
@@ -167,7 +167,7 @@ export default function HomeClient({ db }: { db: Database }) {
         </div>
       </section>
 
-      <section id="blog" className="py-20">
+      <section id="blog" className="py-16">
         <div className={contentWrapper}>
           <div className="flex justify-between items-end mb-12">
             <div>
@@ -244,7 +244,7 @@ export default function HomeClient({ db }: { db: Database }) {
         </div>
       </section>
 
-      <section id="pricing" className="py-20">
+      <section id="pricing" className="py-16">
         <div className={contentWrapper}>
           <h2 className="text-3xl font-bold mb-12 text-center">
             Investasi <span className="text-cyan-400">Terbaik</span>

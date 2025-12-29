@@ -1,6 +1,6 @@
 export default function SiteFooter() {
   return (
-    <footer className="py-16 border-t border-white/10 mt-16">
+    <footer className="py-12 border-t border-white/10 mt-8">
       <div className="container mx-auto px-6 max-w-7xl grid md:grid-cols-4 gap-10">
         {/* 50% - Brand & Description */}
         <div className="md:col-span-2">
