@@ -145,9 +145,40 @@ async function saveByType(formData: FormData, type: "blog" | "portfolio" | "prod
       });
     }
 
-    // Save to Supabase - For now, just log success
-    // TODO: Implement proper Supabase operations
-    console.log("Data saved successfully to Supabase");
+    // Save to local file for now (fallback until Supabase tables are created)
+    try {
+      const fs = require("fs").promises;
+      const path = require("path");
+      const LOCAL_DB_PATH = path.join(process.cwd(), "db.json");
+
+      // Write to local file
+      await fs.writeFile(LOCAL_DB_PATH, JSON.stringify(db, null, 2));
+      console.log("Data saved to local file:", LOCAL_DB_PATH);
+
+      // If Supabase is available, also try to save there
+      if (supabase) {
+        try {
+          if (type === "blog" && db.blog.length > 0) {
+            const newBlog = db.blog[db.blog.length - 1];
+            const { error } = await supabase.from("blog").insert([newBlog]);
+            if (error) console.warn("Supabase save failed:", error);
+          } else if (type === "portfolio" && db.portfolio.length > 0) {
+            const newPortfolio = db.portfolio[db.portfolio.length - 1];
+            const { error } = await supabase.from("portfolio").insert([newPortfolio]);
+            if (error) console.warn("Supabase save failed:", error);
+          } else if (type === "products" && db.products.length > 0) {
+            const newProduct = db.products[db.products.length - 1];
+            const { error } = await supabase.from("products").insert([newProduct]);
+            if (error) console.warn("Supabase save failed:", error);
+          }
+        } catch (supabaseError) {
+          console.warn("Supabase save error:", supabaseError);
+        }
+      }
+    } catch (saveError) {
+      console.error("Failed to save data:", saveError);
+      return { error: "Gagal menyimpan data" };
+    }
 
     // Force revalidate all paths to ensure immediate updates
     const paths = ["/", "/admin", "/blog", "/portofolio", "/products"];
