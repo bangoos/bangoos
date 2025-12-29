@@ -90,7 +90,7 @@ export default async function PortfolioPage() {
               <Plus size={24} className="text-cyan-400" />
               Tambah Portofolio
             </h2>
-            <FormWrapper action={addPortfolio}>
+            <FormWrapper action={addPortfolio} redirectTo="/admin/portofolio">
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-slate-300 mb-2">Nama Proyek</label>

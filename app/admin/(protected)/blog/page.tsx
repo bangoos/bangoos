@@ -78,7 +78,7 @@ export default async function BlogPage() {
               </div>
               Tambah Artikel Baru
             </h2>
-            <FormWrapper action={addBlog}>
+            <FormWrapper action={addBlog} redirectTo="/admin/blog">
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-slate-300 mb-2">Judul Artikel</label>
