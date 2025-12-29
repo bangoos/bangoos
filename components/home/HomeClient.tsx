@@ -45,8 +45,12 @@ export default function HomeClient({ db }: { db: Database }) {
               </a>
             </div>
             <div className="flex items-center gap-6 mt-6 text-sm">
-              <div className="flex items-center gap-2 text-green-400"><span className="w-2 h-2 rounded-full bg-green-400" /> Gratis Hosting</div>
-              <div className="flex items-center gap-2 text-green-400"><span className="w-2 h-2 rounded-full bg-green-400" /> Garansi SEO</div>
+              <div className="flex items-center gap-2 text-green-400">
+                <span className="w-2 h-2 rounded-full bg-green-400" /> Gratis Hosting
+              </div>
+              <div className="flex items-center gap-2 text-green-400">
+                <span className="w-2 h-2 rounded-full bg-green-400" /> Garansi SEO
+              </div>
             </div>
           </motion.div>
         </div>
@@ -86,31 +90,79 @@ export default function HomeClient({ db }: { db: Database }) {
         <div className={contentWrapper}>
           <div className="flex justify-between items-end mb-12">
             <div>
-              <h2 className="text-3xl font-bold">Karya <span className="text-cyan-400">Terbaru</span></h2>
+              <h2 className="text-3xl font-bold">
+                Karya <span className="text-cyan-400">Terbaru</span>
+              </h2>
               <p className="text-gray-400 mt-2">Hasil kerja nyata untuk client di Karawang.</p>
             </div>
-            <a href="#" className="hidden md:flex items-center text-sm text-blue-400 hover:text-blue-300 font-semibold">Lihat Semua <ArrowRight size={16} className="ml-1" /></a>
+            <Link href="/portofolio" className="hidden md:flex items-center text-sm text-blue-400 hover:text-blue-300 font-semibold">
+              Lihat Semua <ArrowRight size={16} className="ml-1" />
+            </Link>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
-            {db.portfolio.map((item, i) => (
-              <button
-                key={item.id}
-                onClick={() => {
-                  setModalType("portfolio");
-                  setSelectedItem(item);
-                }}
-                className="group cloud-panel overflow-hidden hover:-translate-y-2 transition-transform duration-300 text-left w-full"
-              >
-                <div className="relative h-56 overflow-hidden">
-                  <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" decoding="async" />
-                  <div className="absolute inset-0 bg-black/12 group-hover:bg-transparent transition-colors" />
-                </div>
-                <div className="p-6">
-                  <span className="text-xs font-bold text-cyan-400 uppercase tracking-wide">{item.category}</span>
-                  <h3 className="text-xl font-bold mt-2 group-hover:text-cyan-400 transition-colors text-white">{item.title}</h3>
-                </div>
-              </button>
-            ))}
+            {db.portfolio.length > 0
+              ? db.portfolio.slice(0, 3).map((item, i) => (
+                  <button
+                    key={item.id}
+                    onClick={() => {
+                      setModalType("portfolio");
+                      setSelectedItem(item);
+                    }}
+                    className="group bg-gradient-to-b from-[#1a2332] to-[#0F1628] border border-gray-700/50 rounded-2xl overflow-hidden hover:-translate-y-2 transition-all duration-300 text-left w-full hover:shadow-xl hover:shadow-blue-900/20"
+                  >
+                    <div className="relative h-48 overflow-hidden">
+                      {item.image ? (
+                        <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" decoding="async" />
+                      ) : (
+                        <div className="w-full h-full bg-gradient-to-br from-blue-600/20 to-cyan-600/20 flex items-center justify-center">
+                          <div className="text-center">
+                            <div className="text-4xl mb-2">
+                              {item.category === "UMKM" && "🛒"}
+                              {item.category === "Skripsi" && "🎓"}
+                              {item.category === "Kantor" && "🏢"}
+                            </div>
+                            <div className="text-xs text-gray-400 uppercase tracking-wider">{item.category}</div>
+                          </div>
+                        </div>
+                      )}
+                      <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors" />
+                    </div>
+                    <div className="p-6">
+                      <h3 className="text-lg font-bold group-hover:text-cyan-400 transition-colors text-white">{item.title}</h3>
+                      <p className="text-gray-400 text-sm mt-2 line-clamp-2">{item.description}</p>
+                    </div>
+                  </button>
+                ))
+              : // Fallback data saat database kosong
+                [
+                  { id: "1", title: "Toko Online UMKM Karawang", description: "Platform e-commerce lengkap untuk UMKM lokal", category: "UMKM", image: null },
+                  { id: "2", title: "Sistem Informasi Skripsi", description: "Aplikasi web untuk manajemen data skripsi", category: "Skripsi", image: null },
+                  { id: "3", title: "Company Profile PT. Karawang", description: "Website profil perusahaan profesional", category: "Kantor", image: null },
+                ].map((item, i) => (
+                  <div key={i} className="bg-gradient-to-b from-[#1a2332] to-[#0F1628] border border-gray-700/50 rounded-2xl overflow-hidden">
+                    <div className="relative h-48 overflow-hidden">
+                      <div className="w-full h-full bg-gradient-to-br from-blue-600/20 to-cyan-600/20 flex items-center justify-center">
+                        <div className="text-center">
+                          <div className="text-4xl mb-2">
+                            {item.category === "UMKM" && "🛒"}
+                            {item.category === "Skripsi" && "🎓"}
+                            {item.category === "Kantor" && "🏢"}
+                          </div>
+                          <div className="text-xs text-gray-400 uppercase tracking-wider">{item.category}</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="p-6">
+                      <h3 className="text-lg font-bold text-white">{item.title}</h3>
+                      <p className="text-gray-400 text-sm mt-2">{item.description}</p>
+                    </div>
+                  </div>
+                ))}
+          </div>
+          <div className="text-center mt-8">
+            <Link href="/portofolio" className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-xl font-semibold hover:from-blue-700 hover:to-cyan-700 transition-all">
+              Lihat Semua <ArrowRight size={16} />
+            </Link>
           </div>
         </div>
       </section>
@@ -119,102 +171,200 @@ export default function HomeClient({ db }: { db: Database }) {
         <div className={contentWrapper}>
           <div className="flex justify-between items-end mb-12">
             <div>
-              <h2 className="text-3xl font-bold">Artikel <span className="text-cyan-400">& Tips</span></h2>
+              <h2 className="text-3xl font-bold">
+                Artikel <span className="text-cyan-400">& Tips</span>
+              </h2>
               <p className="text-gray-400 mt-2">Wawasan terbaru seputar Web & Bisnis.</p>
             </div>
-            <a href="#" className="hidden md:flex items-center text-sm text-blue-400 hover:text-blue-300 font-semibold">
+            <Link href="/blog" className="hidden md:flex items-center text-sm text-blue-400 hover:text-blue-300 font-semibold">
               Lihat Semua <ArrowRight size={16} className="ml-1" />
-            </a>
+            </Link>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
-            {db.blog.map((item, i) => (
-              <motion.div
-                key={item.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="group cloud-panel overflow-hidden hover:shadow-lg transition-all hover:-translate-y-1"
-              >
-                <div className="relative h-64 overflow-hidden">
-                  <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" decoding="async" />
-                  <div className="absolute bottom-0 left-0 bg-green-500 text-white text-xs font-bold px-3 py-1 m-4 rounded-full z-10">{item.date}</div>
-                </div>
-                <div className="p-8">
-                  <h3 className="text-2xl font-bold mb-3 group-hover:text-cyan-400 transition-colors text-white">{item.title}</h3>
-                  <p className="text-gray-300 leading-relaxed line-clamp-2 mb-6">{item.content}</p>
-                  <button
+            {db.blog.length > 0
+              ? db.blog.slice(0, 2).map((item, i) => (
+                  <motion.div
+                    key={item.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.1 }}
+                    className="group bg-gradient-to-b from-[#1a2332] to-[#0F1628] border border-gray-700/50 rounded-2xl overflow-hidden hover:shadow-xl hover:shadow-blue-900/20 transition-all hover:-translate-y-1 cursor-pointer"
                     onClick={() => {
                       setModalType("blog");
                       setSelectedItem(item);
                     }}
-                    className="inline-flex items-center text-sm font-semibold text-cyan-400 hover:text-cyan-300"
                   >
-                    Baca Selengkapnya <ArrowRight size={16} className="ml-2" />
-                  </button>
-                </div>
-              </motion.div>
-            ))}
+                    <div className="relative h-48 overflow-hidden">
+                      {item.image ? (
+                        <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" decoding="async" />
+                      ) : (
+                        <div className="w-full h-full bg-gradient-to-br from-purple-600/20 to-pink-600/20 flex items-center justify-center">
+                          <div className="text-6xl">
+                            {item.title.includes("SEO") && "🔍"}
+                            {item.title.includes("Skripsi") && "📚"}
+                            {!item.title.includes("SEO") && !item.title.includes("Skripsi") && "📝"}
+                          </div>
+                        </div>
+                      )}
+                      <div className="absolute bottom-4 left-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-bold px-3 py-1 rounded-full z-10">{item.date}</div>
+                    </div>
+                    <div className="p-8">
+                      <h3 className="text-xl font-bold mb-3 group-hover:text-cyan-400 transition-colors text-white">{item.title}</h3>
+                      <p className="text-gray-400 leading-relaxed line-clamp-3 mb-6">{item.content}</p>
+                      <button className="inline-flex items-center text-sm font-semibold text-cyan-400 hover:text-cyan-300 transition-colors">
+                        Baca Selengkapnya <ArrowRight size={16} className="ml-2" />
+                      </button>
+                    </div>
+                  </motion.div>
+                ))
+              : // Fallback data saat database kosong
+                [
+                  { id: "1", title: "Pentingnya SEO Lokal untuk UMKM", content: "SEO lokal sangat penting untuk UMKM di Karawang. Dengan optimasi yang tepat, bisnis Anda bisa muncul di pencarian Google.", date: "15 Des 2024", image: null },
+                  { id: "2", title: "Tips Judul Skripsi IT yang Mudah Diterima", content: "Memilih judul skripsi IT yang tepat sangat krusial. Pilih tema yang relevan dengan industri saat ini.", date: "12 Des 2024", image: null },
+                ].map((item, i) => (
+                  <div key={i} className="bg-gradient-to-b from-[#1a2332] to-[#0F1628] border border-gray-700/50 rounded-2xl overflow-hidden">
+                    <div className="relative h-48 overflow-hidden">
+                      <div className="w-full h-full bg-gradient-to-br from-purple-600/20 to-pink-600/20 flex items-center justify-center">
+                        <div className="text-6xl">
+                          {item.title.includes("SEO") && "🔍"}
+                          {item.title.includes("Skripsi") && "📚"}
+                        </div>
+                      </div>
+                      <div className="absolute bottom-4 left-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-bold px-3 py-1 rounded-full z-10">{item.date}</div>
+                    </div>
+                    <div className="p-8">
+                      <h3 className="text-xl font-bold mb-3 text-white">{item.title}</h3>
+                      <p className="text-gray-400 leading-relaxed line-clamp-3 mb-6">{item.content}</p>
+                    </div>
+                  </div>
+                ))}
           </div>
         </div>
       </section>
 
       <section id="pricing" className="py-20">
         <div className={contentWrapper}>
-          <h2 className="text-3xl font-bold mb-12 text-center">Investasi <span className="text-cyan-400">Terbaik</span></h2>
+          <h2 className="text-3xl font-bold mb-12 text-center">
+            Investasi <span className="text-cyan-400">Terbaik</span>
+          </h2>
           <div className="grid md:grid-cols-3 gap-8 items-center">
-            {/* Modals */}
-            <BlogModal
-              open={modalType === "blog"}
-              onClose={() => {
-                setModalType(null);
-                setSelectedItem(null);
-              }}
-              item={modalType === "blog" ? selectedItem : null}
-            />
-            <PortfolioModal
-              open={modalType === "portfolio"}
-              onClose={() => {
-                setModalType(null);
-                setSelectedItem(null);
-              }}
-              item={modalType === "portfolio" ? selectedItem : null}
-            />
-            <ProductModal
-              open={modalType === "product"}
-              onClose={() => {
-                setModalType(null);
-                setSelectedItem(null);
-              }}
-              item={modalType === "product" ? selectedItem : null}
-            />
-            {db.products.map((p, i) => (
-              <div key={p.id} className={`rounded-3xl ${i === 1 ? "p-8 bg-gradient-to-b from-blue-900/20 to-[#0F1628] border-blue-500/50 shadow-2xl shadow-blue-900/20 scale-105" : "cloud-panel"}`}>
-                {i === 1 && <div className="text-center mb-4 text-blue-400 font-bold text-xs uppercase tracking-wider">Paling Laris</div>}
-                <h3 className="text-xl font-bold mb-2">{p.name}</h3>
-                <div className="text-3xl font-bold mb-4 text-white">{p.price}</div>
-                <ul className="space-y-3 mb-8 text-gray-400 text-sm">
-                  {p.features.map((f, fi) => (
-                    <li key={fi} className="flex gap-2">
-                      <CheckCircle2 size={16} className="text-green-500" /> {f}
-                    </li>
-                  ))}
-                </ul>
-                <button
-                  onClick={() => {
-                    setModalType("product");
-                    setSelectedItem(p);
-                  }}
-                  className={`block w-full text-center py-3 rounded-xl font-bold transition-colors ${i === 1 ? "btn btn-primary" : "btn"}`}
-                >
-                  {i === 1 ? "Paling Laris" : "Pilih Paket"}
-                </button>
-              </div>
-            ))}
+            {db.products.length > 0
+              ? db.products.map((p, i) => (
+                  <div
+                    key={p.id}
+                    className={`rounded-2xl ${
+                      i === 1 ? "p-8 bg-gradient-to-b from-blue-900/30 to-[#0F1628] border-2 border-blue-500/50 shadow-2xl shadow-blue-900/30 scale-105 relative" : "bg-gradient-to-b from-[#1a2332] to-[#0F1628] border border-gray-700/50 p-8"
+                    }`}
+                  >
+                    {i === 1 && (
+                      <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                        <div className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white text-xs font-bold px-4 py-2 rounded-full">Paling Laris</div>
+                      </div>
+                    )}
+                    <h3 className={`text-xl font-bold mb-2 ${i === 1 ? "text-white" : "text-gray-200"}`}>{p.name}</h3>
+                    <div className="text-3xl font-bold mb-6 text-white">{p.price}</div>
+                    <ul className="space-y-3 mb-8 text-gray-400 text-sm">
+                      {p.features.map((f, fi) => (
+                        <li key={fi} className="flex gap-3 items-start">
+                          <CheckCircle2 size={18} className="text-green-500 mt-0.5 flex-shrink-0" />
+                          <span>{f}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <button
+                      onClick={() => {
+                        if (i === 2) {
+                          window.open("https://wa.me/6281234567890", "_blank");
+                        } else {
+                          setModalType("product");
+                          setSelectedItem(p);
+                        }
+                      }}
+                      className={`block w-full text-center py-3 rounded-xl font-bold transition-all ${
+                        i === 1 ? "bg-gradient-to-r from-blue-600 to-cyan-600 text-white hover:from-blue-700 hover:to-cyan-700" : i === 2 ? "bg-gray-700 text-white hover:bg-gray-600" : "bg-gray-700 text-white hover:bg-gray-600"
+                      }`}
+                    >
+                      {i === 1 ? "Paling Laris" : i === 2 ? "Kontak Kami" : "Pilih Paket"}
+                    </button>
+                  </div>
+                ))
+              : // Fallback data saat database kosong
+                [
+                  { id: "1", name: "Starter", price: "Rp 1,5 Juta", features: ["Landing Page 1 Section", "Desain Modern", "Free Domain .my.id", "Gratis Meeting Selamanya", "Revisi 2x"] },
+                  { id: "2", name: "Bisnis", price: "Rp 3 Juta", features: ["Hingga 5 Halaman", "SEO Basic Karawang", "Integrasi WhatsApp", "Analitik Google", "Revisi 3x", "Support Prioritas"] },
+                  { id: "3", name: "Custom / Skripsi", price: "Rp 5 Juta", features: ["Full Sistem Database", "Fitur Komplet (Login/Admin)", "Source Code Lengkap (Skripsi)", "Dokumentasi", "Revisi 5x", "Guidance Bimbingan"] },
+                ].map((p, i) => (
+                  <div
+                    key={p.id}
+                    className={`rounded-2xl ${
+                      i === 1 ? "p-8 bg-gradient-to-b from-blue-900/30 to-[#0F1628] border-2 border-blue-500/50 shadow-2xl shadow-blue-900/30 scale-105 relative" : "bg-gradient-to-b from-[#1a2332] to-[#0F1628] border border-gray-700/50 p-8"
+                    }`}
+                  >
+                    {i === 1 && (
+                      <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                        <div className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white text-xs font-bold px-4 py-2 rounded-full">Paling Laris</div>
+                      </div>
+                    )}
+                    <h3 className={`text-xl font-bold mb-2 ${i === 1 ? "text-white" : "text-gray-200"}`}>{p.name}</h3>
+                    <div className="text-3xl font-bold mb-6 text-white">{p.price}</div>
+                    <ul className="space-y-3 mb-8 text-gray-400 text-sm">
+                      {p.features.map((f, fi) => (
+                        <li key={fi} className="flex gap-3 items-start">
+                          <CheckCircle2 size={18} className="text-green-500 mt-0.5 flex-shrink-0" />
+                          <span>{f}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <button
+                      onClick={() => {
+                        if (i === 2) {
+                          window.open("https://wa.me/6281234567890", "_blank");
+                        }
+                      }}
+                      className={`block w-full text-center py-3 rounded-xl font-bold transition-all ${
+                        i === 1 ? "bg-gradient-to-r from-blue-600 to-cyan-600 text-white hover:from-blue-700 hover:to-cyan-700" : i === 2 ? "bg-gray-700 text-white hover:bg-gray-600" : "bg-gray-700 text-white hover:bg-gray-600"
+                      }`}
+                    >
+                      {i === 1 ? "Paling Laris" : i === 2 ? "Kontak Kami" : "Pilih Paket"}
+                    </button>
+                  </div>
+                ))}
+          </div>
+          <div className="text-center mt-12">
+            <Link href="/products" className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-xl font-semibold hover:from-blue-700 hover:to-cyan-700 transition-all">
+              Lihat Semua Produk <ArrowRight size={16} />
+            </Link>
           </div>
         </div>
       </section>
+
+      {/* Modals */}
+      <BlogModal
+        open={modalType === "blog"}
+        onClose={() => {
+          setModalType(null);
+          setSelectedItem(null);
+        }}
+        item={modalType === "blog" ? selectedItem : null}
+      />
+      <PortfolioModal
+        open={modalType === "portfolio"}
+        onClose={() => {
+          setModalType(null);
+          setSelectedItem(null);
+        }}
+        item={modalType === "portfolio" ? selectedItem : null}
+      />
+      <ProductModal
+        open={modalType === "product"}
+        onClose={() => {
+          setModalType(null);
+          setSelectedItem(null);
+        }}
+        item={modalType === "product" ? selectedItem : null}
+      />
     </PageLayout>
   );
 }
