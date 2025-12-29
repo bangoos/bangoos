@@ -78,8 +78,8 @@ export default function HomeClient({ db }: { db: Database }) {
                 <div className="w-16 h-16 mx-auto bg-cyan-50 rounded-2xl flex items-center justify-center mb-6 text-cyan-500">
                   <f.icon size={32} />
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-slate-800">{f.t}</h3>
-                <p className="text-slate-600">{f.d}</p>
+                <h3 className="text-xl font-bold mb-3 text-white">{f.t}</h3>
+                <p className="text-gray-300">{f.d}</p>
               </motion.div>
             ))}
           </div>
@@ -105,7 +105,7 @@ export default function HomeClient({ db }: { db: Database }) {
                         <div className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white text-xs font-bold px-4 py-2 rounded-full">Paling Laris</div>
                       </div>
                     )}
-                    <h3 className={`text-xl font-bold mb-2 ${i === 1 ? "text-white" : "text-gray-200"}`}>{p.name}</h3>
+                    <h3 className={`text-xl font-bold mb-2 ${i === 1 ? "text-white" : "text-gray-300"}`}>{p.name}</h3>
                     <div className="text-3xl font-bold mb-6 text-white">{p.price}</div>
                     <ul className="space-y-3 mb-8 text-gray-400 text-sm">
                       {p.features.map((f, fi) => (
@@ -149,7 +149,7 @@ export default function HomeClient({ db }: { db: Database }) {
                         <div className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white text-xs font-bold px-4 py-2 rounded-full">Paling Laris</div>
                       </div>
                     )}
-                    <h3 className={`text-xl font-bold mb-2 ${i === 1 ? "text-white" : "text-gray-200"}`}>{p.name}</h3>
+                    <h3 className={`text-xl font-bold mb-2 ${i === 1 ? "text-white" : "text-gray-300"}`}>{p.name}</h3>
                     <div className="text-3xl font-bold mb-6 text-white">{p.price}</div>
                     <ul className="space-y-3 mb-8 text-gray-400 text-sm">
                       {p.features.map((f, fi) => (
