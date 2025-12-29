@@ -26,9 +26,21 @@ export async function GET(request: NextRequest) {
 
       // Test storage connection
       try {
+        // List all buckets first
+        const { data: buckets, error: bucketsError } = await supabase.storage.listBuckets();
+        debug.all_buckets = buckets?.map((b) => b.name) || [];
+        debug.buckets_error = bucketsError?.message || null;
+
+        // Try to get specific bucket
         const { data: storageData, error: storageError } = await supabase.storage.getBucket("images");
         debug.storage_bucket = storageError ? "NOT_FOUND" : "FOUND";
         debug.storage_error = storageError?.message || null;
+        debug.storage_data = storageData;
+
+        // If bucket not found, try to create it
+        if (storageError && storageError.message.includes("not found")) {
+          debug.suggestion = "Bucket 'images' not found. Create it in Supabase Dashboard → Storage";
+        }
       } catch (storageErr) {
         debug.storage_bucket = "ERROR";
         debug.storage_error = storageErr instanceof Error ? storageErr.message : "Unknown error";
