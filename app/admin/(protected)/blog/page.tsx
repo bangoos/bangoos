@@ -95,10 +95,10 @@ export default async function BlogPage() {
                   <input
                     name="slug"
                     type="text"
-                    required
                     className="w-full bg-slate-800/50 border border-slate-700/50 rounded-xl px-4 py-3 text-white placeholder-slate-400 focus:border-blue-500/50 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all duration-300 lowercase"
-                    placeholder="judul-artikel"
+                    placeholder="artikel-judul-anda"
                   />
+                  <p className="text-slate-500 text-xs mt-1">💡 Kosongkan untuk auto-generate SEO-friendly URL dari judul</p>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-slate-300 mb-2">Konten Artikel</label>

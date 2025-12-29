@@ -7,12 +7,45 @@ import { revalidatePath } from "next/cache";
 import { getDatabase, saveDatabase } from "@/lib/vercel-blob";
 
 function slugify(input: string) {
-  return input
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9\s-]/g, "")
-    .replace(/\s+/g, "-")
-    .replace(/-+/g, "-");
+  return (
+    input
+      .toLowerCase()
+      .trim()
+      // Convert Indonesian characters to English
+      .replace(/[äàáâãåā]/g, "a")
+      .replace(/[ëèéêē]/g, "e")
+      .replace(/[ïìíîī]/g, "i")
+      .replace(/[öòóôõō]/g, "o")
+      .replace(/[üùúûū]/g, "u")
+      .replace(/[ñ]/g, "n")
+      .replace(/[ç]/g, "c")
+      // Replace special characters with spaces
+      .replace(/[^a-z0-9\s-]/g, " ")
+      // Replace multiple spaces with single hyphen
+      .replace(/\s+/g, "-")
+      // Remove multiple hyphens
+      .replace(/-+/g, "-")
+      // Remove leading/trailing hyphens
+      .replace(/^-+|-+$/g, "") ||
+    // Ensure it's not empty
+    "item"
+  );
+}
+
+function generateSEOSlug(title: string, type: "blog" | "portfolio" | "products"): string {
+  const baseSlug = slugify(title);
+
+  // Add prefixes for better SEO
+  switch (type) {
+    case "blog":
+      return `artikel-${baseSlug}`;
+    case "portfolio":
+      return `portfolio-${baseSlug}`;
+    case "products":
+      return `paket-${baseSlug}`;
+    default:
+      return baseSlug;
+  }
 }
 
 export async function loginAction(prev: unknown, fd: FormData): Promise<{ error?: string } | void> {
@@ -51,22 +84,43 @@ async function saveByType(formData: FormData, type: "blog" | "portfolio" | "prod
     if (type === "blog") {
       const title = formData.get("title") as string;
       const providedSlug = (formData.get("slug") as string) || "";
-      const safeSlug = providedSlug.trim() ? slugify(providedSlug) : slugify(title);
+      const safeSlug = providedSlug.trim() ? slugify(providedSlug) : generateSEOSlug(title, "blog");
+
+      // Check for duplicate slug and append number if needed
+      let finalSlug = safeSlug;
+      let counter = 1;
+      while (db.blog.some((post) => post.slug === finalSlug)) {
+        finalSlug = `${safeSlug}-${counter}`;
+        counter++;
+      }
+
       db.blog.push({
         id: Date.now().toString(),
         title,
-        slug: safeSlug,
+        slug: finalSlug,
         content: formData.get("content") as string,
         image: url,
         date: new Date().toLocaleDateString("id-ID"),
       });
     } else if (type === "portfolio") {
+      const title = formData.get("title") as string;
+      const safeSlug = generateSEOSlug(title, "portfolio");
+
+      // Check for duplicate slug
+      let finalSlug = safeSlug;
+      let counter = 1;
+      while (db.portfolio.some((item) => item.slug && item.slug === finalSlug)) {
+        finalSlug = `${safeSlug}-${counter}`;
+        counter++;
+      }
+
       db.portfolio.push({
         id: Date.now().toString(),
-        title: formData.get("title") as string,
+        title,
         description: formData.get("description") as string,
         category: formData.get("category") as "UMKM" | "Skripsi" | "Kantor",
         image: url,
+        slug: finalSlug,
       });
     } else if (type === "products") {
       const raw = (formData.get("features") as string) || "";
@@ -134,28 +188,60 @@ export async function updateItem(...args: any[]) {
     if (type === "blog") {
       const post = db.blog.find((p) => p.id === id);
       if (!post) return { error: "Artikel tidak ditemukan" };
+
       const title = fd.get("title") as string | null;
       const providedSlug = (fd.get("slug") as string) || "";
       const content = fd.get("content") as string | null;
       const file = fd.get("file") as File | null;
+
       if (title) post.title = title;
-      post.slug = providedSlug.trim() ? slugify(providedSlug) : slugify(post.title);
+
+      // Handle slug - auto-generate if empty or use provided slug
+      if (providedSlug.trim()) {
+        post.slug = slugify(providedSlug);
+      } else if (title) {
+        // Auto-generate SEO-friendly slug from title
+        let newSlug = generateSEOSlug(title, "blog");
+        let counter = 1;
+        // Ensure unique slug (exclude current post)
+        while (db.blog.some((p) => p.id !== id && p.slug === newSlug)) {
+          newSlug = `${generateSEOSlug(title, "blog")}-${counter}`;
+          counter++;
+        }
+        post.slug = newSlug;
+      }
+
       if (content) post.content = content;
       if (file) post.image = await uploadImage(fd as FormData);
     } else if (type === "portfolio") {
       const item = db.portfolio.find((p) => p.id === id);
       if (!item) return { error: "Portofolio tidak ditemukan" };
+
       const title = fd.get("title") as string | null;
       const description = fd.get("description") as string | null;
       const category = fd.get("category") as ("UMKM" | "Skripsi" | "Kantor") | null;
       const file = fd.get("file") as File | null;
-      if (title) item.title = title;
+
+      if (title) {
+        item.title = title;
+        // Auto-generate SEO-friendly slug
+        let newSlug = generateSEOSlug(title, "portfolio");
+        let counter = 1;
+        // Ensure unique slug (exclude current item)
+        while (db.portfolio.some((p) => p.id !== id && p.slug === newSlug)) {
+          newSlug = `${generateSEOSlug(title, "portfolio")}-${counter}`;
+          counter++;
+        }
+        item.slug = newSlug;
+      }
+
       if (description) item.description = description;
       if (category) item.category = category;
       if (file) item.image = await uploadImage(fd as FormData);
     } else if (type === "products") {
       const p = db.products.find((p) => p.id === id);
       if (!p) return { error: "Produk tidak ditemukan" };
+
       const name = fd.get("name") as string | null;
       const price = fd.get("price") as string | null;
       const raw = (fd.get("features") as string) || "";
@@ -163,6 +249,7 @@ export async function updateItem(...args: any[]) {
         .split(",")
         .map((f) => f.trim())
         .filter((f) => f !== "");
+
       if (name) p.name = name;
       if (price) p.price = price;
       if (raw) p.features = feats;
