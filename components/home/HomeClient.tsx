@@ -86,6 +86,105 @@ export default function HomeClient({ db }: { db: Database }) {
         </div>
       </section>
 
+      <section id="pricing" className="py-8">
+        <div className={contentWrapper}>
+          <h2 className="text-3xl font-bold mb-8 text-center">
+            Investasi <span className="text-cyan-400">Terbaik</span>
+          </h2>
+          <div className="grid md:grid-cols-3 gap-8 items-center">
+            {db.products.length > 0
+              ? db.products.map((p, i) => (
+                  <div
+                    key={p.id}
+                    className={`rounded-2xl ${
+                      i === 1 ? "p-8 bg-gradient-to-b from-blue-900/30 to-[#0F1628] border-2 border-blue-500/50 shadow-2xl shadow-blue-900/30 scale-105 relative" : "bg-gradient-to-b from-[#1a2332] to-[#0F1628] border border-gray-700/50 p-8"
+                    }`}
+                  >
+                    {i === 1 && (
+                      <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                        <div className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white text-xs font-bold px-4 py-2 rounded-full">Paling Laris</div>
+                      </div>
+                    )}
+                    <h3 className={`text-xl font-bold mb-2 ${i === 1 ? "text-white" : "text-gray-200"}`}>{p.name}</h3>
+                    <div className="text-3xl font-bold mb-6 text-white">{p.price}</div>
+                    <ul className="space-y-3 mb-8 text-gray-400 text-sm">
+                      {p.features.map((f, fi) => (
+                        <li key={fi} className="flex gap-3 items-start">
+                          <CheckCircle2 size={18} className="text-green-500 mt-0.5 flex-shrink-0" />
+                          <span>{f}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <button
+                      onClick={() => {
+                        if (i === 2) {
+                          window.open("https://wa.me/6281234567890", "_blank");
+                        } else {
+                          setModalType("product");
+                          setSelectedItem(p);
+                        }
+                      }}
+                      className={`block w-full text-center py-3 rounded-xl font-bold transition-all ${
+                        i === 1 ? "bg-gradient-to-r from-blue-600 to-cyan-600 text-white hover:from-blue-700 hover:to-cyan-700" : i === 2 ? "bg-gray-700 text-white hover:bg-gray-600" : "bg-gray-700 text-white hover:bg-gray-600"
+                      }`}
+                    >
+                      {i === 1 ? "Paling Laris" : i === 2 ? "Kontak Kami" : "Pilih Paket"}
+                    </button>
+                  </div>
+                ))
+              : // Fallback data saat database kosong
+                [
+                  { id: "1", name: "Starter", price: "Rp 1,5 Juta", features: ["Landing Page 1 Section", "Desain Modern", "Free Domain .my.id", "Gratis Meeting Selamanya", "Revisi 2x"] },
+                  { id: "2", name: "Bisnis", price: "Rp 3 Juta", features: ["Hingga 5 Halaman", "SEO Basic Karawang", "Integrasi WhatsApp", "Analitik Google", "Revisi 3x", "Support Prioritas"] },
+                  { id: "3", name: "Custom / Skripsi", price: "Rp 5 Juta", features: ["Full Sistem Database", "Fitur Komplet (Login/Admin)", "Source Code Lengkap (Skripsi)", "Dokumentasi", "Revisi 5x", "Guidance Bimbingan"] },
+                ].map((p, i) => (
+                  <div
+                    key={p.id}
+                    className={`rounded-2xl ${
+                      i === 1 ? "p-8 bg-gradient-to-b from-blue-900/30 to-[#0F1628] border-2 border-blue-500/50 shadow-2xl shadow-blue-900/30 scale-105 relative" : "bg-gradient-to-b from-[#1a2332] to-[#0F1628] border border-gray-700/50 p-8"
+                    }`}
+                  >
+                    {i === 1 && (
+                      <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                        <div className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white text-xs font-bold px-4 py-2 rounded-full">Paling Laris</div>
+                      </div>
+                    )}
+                    <h3 className={`text-xl font-bold mb-2 ${i === 1 ? "text-white" : "text-gray-200"}`}>{p.name}</h3>
+                    <div className="text-3xl font-bold mb-6 text-white">{p.price}</div>
+                    <ul className="space-y-3 mb-8 text-gray-400 text-sm">
+                      {p.features.map((f, fi) => (
+                        <li key={fi} className="flex gap-3 items-start">
+                          <CheckCircle2 size={18} className="text-green-500 mt-0.5 flex-shrink-0" />
+                          <span>{f}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <button
+                      onClick={() => {
+                        if (i === 2) {
+                          window.open("https://wa.me/6281234567890", "_blank");
+                        } else {
+                          setModalType("product");
+                          setSelectedItem(p);
+                        }
+                      }}
+                      className={`block w-full text-center py-3 rounded-xl font-bold transition-all ${
+                        i === 1 ? "bg-gradient-to-r from-blue-600 to-cyan-600 text-white hover:from-blue-700 hover:to-cyan-700" : i === 2 ? "bg-gray-700 text-white hover:bg-gray-600" : "bg-gray-700 text-white hover:bg-gray-600"
+                      }`}
+                    >
+                      {i === 1 ? "Paling Laris" : i === 2 ? "Kontak Kami" : "Pilih Paket"}
+                    </button>
+                  </div>
+                ))}
+          </div>
+          <div className="text-center mt-12">
+            <Link href="/products" className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-xl font-semibold hover:from-blue-700 hover:to-cyan-700 transition-all">
+              Lihat Semua Produk <ArrowRight size={16} />
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <section id="portofolio" className="py-8">
         <div className={contentWrapper}>
           <div className="flex justify-between items-end mb-8">
@@ -240,102 +339,6 @@ export default function HomeClient({ db }: { db: Database }) {
                     </div>
                   </div>
                 ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="pricing" className="py-8">
-        <div className={contentWrapper}>
-          <h2 className="text-3xl font-bold mb-8 text-center">
-            Investasi <span className="text-cyan-400">Terbaik</span>
-          </h2>
-          <div className="grid md:grid-cols-3 gap-8 items-center">
-            {db.products.length > 0
-              ? db.products.map((p, i) => (
-                  <div
-                    key={p.id}
-                    className={`rounded-2xl ${
-                      i === 1 ? "p-8 bg-gradient-to-b from-blue-900/30 to-[#0F1628] border-2 border-blue-500/50 shadow-2xl shadow-blue-900/30 scale-105 relative" : "bg-gradient-to-b from-[#1a2332] to-[#0F1628] border border-gray-700/50 p-8"
-                    }`}
-                  >
-                    {i === 1 && (
-                      <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                        <div className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white text-xs font-bold px-4 py-2 rounded-full">Paling Laris</div>
-                      </div>
-                    )}
-                    <h3 className={`text-xl font-bold mb-2 ${i === 1 ? "text-white" : "text-gray-200"}`}>{p.name}</h3>
-                    <div className="text-3xl font-bold mb-6 text-white">{p.price}</div>
-                    <ul className="space-y-3 mb-8 text-gray-400 text-sm">
-                      {p.features.map((f, fi) => (
-                        <li key={fi} className="flex gap-3 items-start">
-                          <CheckCircle2 size={18} className="text-green-500 mt-0.5 flex-shrink-0" />
-                          <span>{f}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    <button
-                      onClick={() => {
-                        if (i === 2) {
-                          window.open("https://wa.me/6281234567890", "_blank");
-                        } else {
-                          setModalType("product");
-                          setSelectedItem(p);
-                        }
-                      }}
-                      className={`block w-full text-center py-3 rounded-xl font-bold transition-all ${
-                        i === 1 ? "bg-gradient-to-r from-blue-600 to-cyan-600 text-white hover:from-blue-700 hover:to-cyan-700" : i === 2 ? "bg-gray-700 text-white hover:bg-gray-600" : "bg-gray-700 text-white hover:bg-gray-600"
-                      }`}
-                    >
-                      {i === 1 ? "Paling Laris" : i === 2 ? "Kontak Kami" : "Pilih Paket"}
-                    </button>
-                  </div>
-                ))
-              : // Fallback data saat database kosong
-                [
-                  { id: "1", name: "Starter", price: "Rp 1,5 Juta", features: ["Landing Page 1 Section", "Desain Modern", "Free Domain .my.id", "Gratis Meeting Selamanya", "Revisi 2x"] },
-                  { id: "2", name: "Bisnis", price: "Rp 3 Juta", features: ["Hingga 5 Halaman", "SEO Basic Karawang", "Integrasi WhatsApp", "Analitik Google", "Revisi 3x", "Support Prioritas"] },
-                  { id: "3", name: "Custom / Skripsi", price: "Rp 5 Juta", features: ["Full Sistem Database", "Fitur Komplet (Login/Admin)", "Source Code Lengkap (Skripsi)", "Dokumentasi", "Revisi 5x", "Guidance Bimbingan"] },
-                ].map((p, i) => (
-                  <div
-                    key={p.id}
-                    className={`rounded-2xl ${
-                      i === 1 ? "p-8 bg-gradient-to-b from-blue-900/30 to-[#0F1628] border-2 border-blue-500/50 shadow-2xl shadow-blue-900/30 scale-105 relative" : "bg-gradient-to-b from-[#1a2332] to-[#0F1628] border border-gray-700/50 p-8"
-                    }`}
-                  >
-                    {i === 1 && (
-                      <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                        <div className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white text-xs font-bold px-4 py-2 rounded-full">Paling Laris</div>
-                      </div>
-                    )}
-                    <h3 className={`text-xl font-bold mb-2 ${i === 1 ? "text-white" : "text-gray-200"}`}>{p.name}</h3>
-                    <div className="text-3xl font-bold mb-6 text-white">{p.price}</div>
-                    <ul className="space-y-3 mb-8 text-gray-400 text-sm">
-                      {p.features.map((f, fi) => (
-                        <li key={fi} className="flex gap-3 items-start">
-                          <CheckCircle2 size={18} className="text-green-500 mt-0.5 flex-shrink-0" />
-                          <span>{f}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    <button
-                      onClick={() => {
-                        if (i === 2) {
-                          window.open("https://wa.me/6281234567890", "_blank");
-                        }
-                      }}
-                      className={`block w-full text-center py-3 rounded-xl font-bold transition-all ${
-                        i === 1 ? "bg-gradient-to-r from-blue-600 to-cyan-600 text-white hover:from-blue-700 hover:to-cyan-700" : i === 2 ? "bg-gray-700 text-white hover:bg-gray-600" : "bg-gray-700 text-white hover:bg-gray-600"
-                      }`}
-                    >
-                      {i === 1 ? "Paling Laris" : i === 2 ? "Kontak Kami" : "Pilih Paket"}
-                    </button>
-                  </div>
-                ))}
-          </div>
-          <div className="text-center mt-12">
-            <Link href="/products" className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-xl font-semibold hover:from-blue-700 hover:to-cyan-700 transition-all">
-              Lihat Semua Produk <ArrowRight size={16} />
-            </Link>
           </div>
         </div>
       </section>

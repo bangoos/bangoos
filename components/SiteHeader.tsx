@@ -17,11 +17,11 @@ export default function SiteHeader() {
             <a href="#layanan" className="text-sm text-gray-300 hover:text-cyan-400">
               Layanan
             </a>
-            <a href="#portofolio" className="text-sm text-gray-300 hover:text-cyan-400">
-              Portofolio
-            </a>
             <a href="#pricing" className="text-sm text-gray-300 hover:text-cyan-400">
               Harga
+            </a>
+            <a href="#portofolio" className="text-sm text-gray-300 hover:text-cyan-400">
+              Portofolio
             </a>
             <a href="#blog" className="text-sm text-gray-300 hover:text-cyan-400">
               Blog
