@@ -7,6 +7,15 @@ import Link from "next/link";
 
 export default async function EditBlogPage({ params }: { params: { id: string } }) {
   const db: Database = await getDatabase();
+
+  // Debug: Log untuk melihat ID yang dicari dan ID yang ada
+  console.log("Looking for ID:", params.id);
+  console.log(
+    "Available IDs:",
+    db.blog.map((p) => p.id)
+  );
+  console.log("Blog items:", db.blog);
+
   const post = db.blog.find((p) => p.id === params.id);
 
   if (!post) {
@@ -17,6 +26,7 @@ export default async function EditBlogPage({ params }: { params: { id: string } 
             <FileText size={32} className="text-red-400" />
           </div>
           <h1 className="text-2xl font-bold text-white mb-2">Artikel Tidak Ditemukan</h1>
+          <p className="text-slate-400 mb-4">ID yang dicari: {params.id}</p>
           <p className="text-slate-400 mb-6">Artikel yang Anda cari tidak ada atau telah dihapus.</p>
           <Link href="/admin/blog" className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 transition-colors">
             <ArrowLeft size={18} /> Kembali ke Blog
