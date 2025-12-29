@@ -28,7 +28,7 @@ export default function PortfolioClient({ db }: PortfolioClientProps) {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {db.portfolio.map((item: PortfolioItem) => (
+          {db.portfolio.map((item) => (
             <div key={item.id} className="group bg-gradient-to-b from-[#1a2332] to-[#0F1628] border border-gray-700/50 rounded-2xl overflow-hidden hover:-translate-y-2 transition-all duration-300 hover:shadow-xl hover:shadow-blue-900/20">
               <div className="relative h-48 overflow-hidden">
                 {item.image ? (
