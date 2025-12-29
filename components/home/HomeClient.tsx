@@ -56,7 +56,7 @@ export default function HomeClient({ db }: { db: Database }) {
         </div>
       </section>
 
-      <section id="layanan" className="py-16">
+      <section id="layanan" className="py-12">
         <div className={contentWrapper}>
           <h2 className="text-3xl font-bold mb-12 text-center">
             Mengapa <span className="text-green-600">BangOos?</span>
@@ -86,7 +86,7 @@ export default function HomeClient({ db }: { db: Database }) {
         </div>
       </section>
 
-      <section id="portofolio" className="py-16">
+      <section id="portofolio" className="py-12">
         <div className={contentWrapper}>
           <div className="flex justify-between items-end mb-12">
             <div>
@@ -167,7 +167,7 @@ export default function HomeClient({ db }: { db: Database }) {
         </div>
       </section>
 
-      <section id="blog" className="py-16">
+      <section id="blog" className="py-12">
         <div className={contentWrapper}>
           <div className="flex justify-between items-end mb-12">
             <div>
@@ -244,7 +244,7 @@ export default function HomeClient({ db }: { db: Database }) {
         </div>
       </section>
 
-      <section id="pricing" className="py-16">
+      <section id="pricing" className="py-12">
         <div className={contentWrapper}>
           <h2 className="text-3xl font-bold mb-12 text-center">
             Investasi <span className="text-cyan-400">Terbaik</span>
