@@ -58,14 +58,14 @@ export default function HomeClient({ db }: { db: Database }) {
 
       <section id="layanan" className="py-8">
         <div className={contentWrapper}>
-          <h2 className="text-3xl font-bold mb-12 text-center">
-            Mengapa <span className="text-green-600">BangOos?</span>
+          <h2 className="text-3xl font-bold mb-8 text-center">
+            Jasa <span className="text-cyan-400">Website Profesional</span>
           </h2>
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { icon: Zap, t: "Super Cepat", d: "Teknologi Next.js" },
-              { icon: MapPin, t: "SEO Lokal", d: "Karawang Area" },
-              { icon: CheckCircle2, t: "Gratis Hosting", d: "Vercel Stack" },
+              { icon: Zap, t: "Website UMKM", d: "Toko Online & Company Profile" },
+              { icon: MapPin, t: "SEO Karawang", d: "Optimasi Lokal #1 Karawang" },
+              { icon: CheckCircle2, t: "Web Skripsi", d: "Tugas Akhir & Kampus" },
             ].map((f, i) => (
               <motion.div
                 key={i}
@@ -89,7 +89,7 @@ export default function HomeClient({ db }: { db: Database }) {
       <section id="pricing" className="py-8">
         <div className={contentWrapper}>
           <h2 className="text-3xl font-bold mb-8 text-center">
-            Investasi <span className="text-cyan-400">Terbaik</span>
+            Paket <span className="text-cyan-400">Harga Website</span>
           </h2>
           <div className="grid md:grid-cols-3 gap-8 items-center">
             {db.products.length > 0
@@ -190,7 +190,7 @@ export default function HomeClient({ db }: { db: Database }) {
           <div className="flex justify-between items-end mb-8">
             <div>
               <h2 className="text-3xl font-bold">
-                Karya <span className="text-cyan-400">Terbaru</span>
+                Portfolio <span className="text-cyan-400">Website</span>
               </h2>
               <p className="text-gray-400 mt-2">Hasil kerja nyata untuk client di Karawang.</p>
             </div>
@@ -271,7 +271,7 @@ export default function HomeClient({ db }: { db: Database }) {
           <div className="flex justify-between items-end mb-8">
             <div>
               <h2 className="text-3xl font-bold">
-                Artikel <span className="text-cyan-400">& Tips</span>
+                Artikel <span className="text-cyan-400">Website</span>
               </h2>
               <p className="text-gray-400 mt-2">Wawasan terbaru seputar Web & Bisnis.</p>
             </div>
