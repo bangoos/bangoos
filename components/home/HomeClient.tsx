@@ -53,6 +53,22 @@ export default function HomeClient({ db }: { db: Database }) {
               </div>
             </div>
           </motion.div>
+          <motion.div initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1, delay: 0.5 }} className="hidden md:block relative">
+            <div className="relative w-full h-full flex items-center justify-center">
+              <div className="bg-gradient-to-br from-blue-600/20 to-cyan-600/20 backdrop-blur-xl border border-cyan-500/30 rounded-2xl p-8 shadow-2xl shadow-cyan-500/10">
+                <div className="text-center">
+                  <div className="text-6xl mb-4">🚀</div>
+                  <h3 className="text-xl font-bold text-white mb-2">Siap Launch!</h3>
+                  <p className="text-cyan-300 text-sm">Website profesional Anda siap dalam 24 jam</p>
+                  <div className="flex justify-center gap-2 mt-4">
+                    <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
+                    <div className="w-2 h-2 rounded-full bg-yellow-400 animate-pulse" style={{ animationDelay: "0.5s" }}></div>
+                    <div className="w-2 h-2 rounded-full bg-red-400 animate-pulse" style={{ animationDelay: "1s" }}></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
