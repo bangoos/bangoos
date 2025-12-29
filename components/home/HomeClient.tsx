@@ -13,6 +13,7 @@ export default function HomeClient({ db }: { db: Database }) {
   const [scrolled, setScrolled] = useState(false);
   const [modalType, setModalType] = useState<"blog" | "portfolio" | "product" | null>(null);
   const [selectedItem, setSelectedItem] = useState<any>(null);
+  const contentWrapper = "container mx-auto px-6 max-w-6xl w-full";
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -27,7 +28,7 @@ export default function HomeClient({ db }: { db: Database }) {
           <motion.div animate={{ y: [0, -50, 0], opacity: [0.18, 0.45, 0.18] }} transition={{ duration: 7, repeat: Infinity }} className="absolute top-20 left-10 w-72 h-72 bg-cyan-500 rounded-full blur-3xl mix-blend-screen" />
           <motion.div animate={{ y: [0, 50, 0], opacity: [0.18, 0.45, 0.18] }} transition={{ duration: 8, repeat: Infinity }} className="absolute top-40 right-10 w-96 h-96 bg-blue-200 rounded-full blur-3xl mix-blend-screen" />
         </div>
-        <div className="relative z-10 grid md:grid-cols-2 gap-8 items-center">
+        <div className={contentWrapper + " relative z-10 grid md:grid-cols-2 gap-8 items-center"}>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
             <span className="inline-flex items-center gap-2 text-cyan-300 font-bold tracking-widest text-xs uppercase mb-4 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20">#1 Agensi Digital di Karawang</span>
             <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-6 text-white">
@@ -56,7 +57,7 @@ export default function HomeClient({ db }: { db: Database }) {
       </section>
 
       <section id="layanan" className="py-8">
-        <div>
+        <div className={contentWrapper}>
           <h2 className="text-3xl font-bold mb-8 text-center">
             Jasa <span className="text-cyan-400">Website Profesional</span>
           </h2>
@@ -86,7 +87,7 @@ export default function HomeClient({ db }: { db: Database }) {
       </section>
 
       <section id="pricing" className="py-8">
-        <div>
+        <div className={contentWrapper}>
           <h2 className="text-3xl font-bold mb-8 text-center">
             Paket <span className="text-cyan-400">Harga Website</span>
           </h2>
@@ -185,9 +186,9 @@ export default function HomeClient({ db }: { db: Database }) {
       </section>
 
       <section id="portofolio" className="py-8">
-        <div>
+        <div className={contentWrapper}>
           <div className="flex justify-between items-end mb-8">
-            <div>
+            <div className={contentWrapper}>
               <h2 className="text-3xl font-bold">
                 Portfolio <span className="text-cyan-400">Website</span>
               </h2>
@@ -266,9 +267,9 @@ export default function HomeClient({ db }: { db: Database }) {
       </section>
 
       <section id="blog" className="py-8">
-        <div>
+        <div className={contentWrapper}>
           <div className="flex justify-between items-end mb-8">
-            <div>
+            <div className={contentWrapper}>
               <h2 className="text-3xl font-bold">
                 Artikel <span className="text-cyan-400">Website</span>
               </h2>
