@@ -26,15 +26,15 @@ export default function HomeClient({ db }: { db: Database }) {
     <PageLayout>
       <section id="beranda" className="relative min-h-screen flex items-center">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <motion.div animate={{ y: [0, -50, 0], opacity: [0.18, 0.45, 0.18] }} transition={{ duration: 7, repeat: Infinity }} className="absolute top-20 left-10 w-72 h-72 bg-orange-400 rounded-full blur-3xl mix-blend-screen" />
-          <motion.div animate={{ y: [0, 50, 0], opacity: [0.18, 0.45, 0.18] }} transition={{ duration: 8, repeat: Infinity }} className="absolute top-40 right-10 w-96 h-96 bg-yellow-300 rounded-full blur-3xl mix-blend-screen" />
+          <motion.div animate={{ y: [0, -50, 0], opacity: [0.18, 0.45, 0.18] }} transition={{ duration: 7, repeat: Infinity }} className="absolute top-20 left-10 w-72 h-72 bg-green-500 rounded-full blur-3xl mix-blend-screen" />
+          <motion.div animate={{ y: [0, 50, 0], opacity: [0.18, 0.45, 0.18] }} transition={{ duration: 8, repeat: Infinity }} className="absolute top-40 right-10 w-96 h-96 bg-green-200 rounded-full blur-3xl mix-blend-screen" />
         </div>
         <div className={contentWrapper + " relative z-10 grid md:grid-cols-2 gap-12 items-center"}>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-            <span className="text-orange-500 font-bold tracking-widest text-xs uppercase mb-4 block">Agensi Digital Karawang</span>
+            <span className="text-green-600 font-bold tracking-widest text-xs uppercase mb-4 block">Agensi Digital Karawang</span>
             <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-6 text-slate-900">
               Solusi Digital <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-yellow-300">Web Solutions Karawang</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-green-300">Web Solutions Karawang</span>
             </h1>
             <p className="text-slate-600 text-lg mb-8">Website super cepat, SEO lokal, dan gratis hosting selamanya. Spesialis untuk UMKM & Skripsi.</p>
             <div className="flex flex-col sm:flex-row gap-4">
@@ -52,7 +52,7 @@ export default function HomeClient({ db }: { db: Database }) {
       <section id="layanan" className="py-20">
         <div className={contentWrapper}>
           <h2 className="text-3xl font-bold mb-12 text-center">
-            Mengapa <span className="text-orange-500">BangOos?</span>
+            Mengapa <span className="text-green-600">BangOos?</span>
           </h2>
           <div className="grid md:grid-cols-3 gap-8">
             {[
@@ -68,7 +68,7 @@ export default function HomeClient({ db }: { db: Database }) {
                 transition={{ delay: i * 0.1 }}
                 className="cloud-panel p-8 rounded-2xl text-center hover:shadow-lg transition-shadow"
               >
-                <div className="w-16 h-16 mx-auto bg-orange-100 rounded-2xl flex items-center justify-center mb-6 text-orange-500">
+                <div className="w-16 h-16 mx-auto bg-green-50 rounded-2xl flex items-center justify-center mb-6 text-green-500">
                   <f.icon size={32} />
                 </div>
                 <h3 className="text-xl font-bold mb-3 text-slate-800">{f.t}</h3>
@@ -104,8 +104,8 @@ export default function HomeClient({ db }: { db: Database }) {
                   <div className="absolute inset-0 bg-black/12 group-hover:bg-transparent transition-colors" />
                 </div>
                 <div className="p-6">
-                  <span className="text-xs font-bold text-orange-500 uppercase tracking-wide">{item.category}</span>
-                  <h3 className="text-xl font-bold mt-2 group-hover:text-orange-500 transition-colors text-slate-800">{item.title}</h3>
+                  <span className="text-xs font-bold text-green-600 uppercase tracking-wide">{item.category}</span>
+                  <h3 className="text-xl font-bold mt-2 group-hover:text-green-500 transition-colors text-slate-800">{item.title}</h3>
                 </div>
               </button>
             ))}
@@ -118,7 +118,7 @@ export default function HomeClient({ db }: { db: Database }) {
           <div className="flex justify-between items-end mb-12">
             <div>
               <h2 className="text-3xl font-bold">
-                Artikel <span className="text-orange-500">Terbaru</span>
+                Artikel <span className="text-green-600">Terbaru</span>
               </h2>
               <p className="text-slate-600 mt-2">Wawasan terbaru seputar Web & Bisnis.</p>
             </div>
@@ -139,17 +139,17 @@ export default function HomeClient({ db }: { db: Database }) {
               >
                 <div className="relative h-64 overflow-hidden">
                   <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" decoding="async" />
-                  <div className="absolute bottom-0 left-0 bg-orange-500 text-white text-xs font-bold px-3 py-1 m-4 rounded-full z-10">{item.date}</div>
+                  <div className="absolute bottom-0 left-0 bg-green-500 text-white text-xs font-bold px-3 py-1 m-4 rounded-full z-10">{item.date}</div>
                 </div>
                 <div className="p-8">
-                  <h3 className="text-2xl font-bold mb-3 group-hover:text-orange-400 transition-colors text-slate-800">{item.title}</h3>
+                  <h3 className="text-2xl font-bold mb-3 group-hover:text-green-500 transition-colors text-slate-800">{item.title}</h3>
                   <p className="text-slate-600 leading-relaxed line-clamp-2 mb-6">{item.content}</p>
                   <button
                     onClick={() => {
                       setModalType("blog");
                       setSelectedItem(item);
                     }}
-                    className="inline-flex items-center text-sm font-semibold text-orange-500 hover:text-orange-400"
+                    className="inline-flex items-center text-sm font-semibold text-green-600 hover:text-green-500"
                   >
                     Baca Selengkapnya <ArrowRight size={16} className="ml-2" />
                   </button>
@@ -163,7 +163,7 @@ export default function HomeClient({ db }: { db: Database }) {
       <section id="pricing" className="py-20">
         <div className={contentWrapper}>
           <h2 className="text-3xl font-bold mb-12 text-center">
-            Paket <span className="text-cyan-400">Harga</span>
+            Paket <span className="text-green-600">Harga</span>
           </h2>
           <div className="grid md:grid-cols-3 gap-8 items-center">
             {/* Modals */}

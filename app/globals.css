@@ -2,10 +2,14 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --cloud-bg: #fffaf0; /* warm cream cloud for Gear-5 vibe */
-  --cloud-foreground: #071428; /* dark text for cloud bubbles */
-  --accent: #ff6b37; /* warm orange accent */
-  --accent-2: #ffd28a; /* soft yellow highlight */
+  --cloud-bg: #fffaf0;
+  /* warm cream cloud for Gear-5 vibe */
+  --cloud-foreground: #071428;
+  /* dark text for cloud bubbles */
+  --accent: #ff6b37;
+  /* warm orange accent */
+  --accent-2: #ffd28a;
+  /* soft yellow highlight */
   --muted: #6b7280;
 }
 
@@ -71,7 +75,7 @@
 .btn-primary {
   background: linear-gradient(90deg, var(--accent), var(--accent-2));
   color: white;
-  box-shadow: 0 6px 18px rgba(255,107,55,0.16);
+  box-shadow: 0 6px 18px var(--accent-shadow);
 }
 
 .btn-ghost {
