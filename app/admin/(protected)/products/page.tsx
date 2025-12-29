@@ -1,7 +1,8 @@
-import { addProduct, deleteItem } from '@/actions/admin-actions';
-import { getDatabase } from '@/lib/vercel-blob';
-import { Trash2, Check } from 'lucide-react';
-import type { Database } from '@/lib/types';
+import { addProduct, deleteItem } from "@/actions/admin-actions";
+import { getDatabase } from "@/lib/vercel-blob";
+import { Trash2, Check, Edit2 } from "lucide-react";
+import DeleteForm from "@/components/admin/DeleteForm";
+import type { Database } from "@/lib/types";
 
 export default async function ProductsPage() {
   const db: Database = await getDatabase();
@@ -17,14 +18,27 @@ export default async function ProductsPage() {
             </div>
             <div>
               <label className="block text-sm text-slate-300 mb-1.5">Harga</label>
-              <input name="price" type="text" required placeholder="Rp 1.500.000" className="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-3 text-white focus:border-purple-500 outline-none transition-colors font-semibold text-lg" />
+              <input
+                name="price"
+                type="text"
+                required
+                placeholder="Rp 1.500.000"
+                className="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-3 text-white focus:border-purple-500 outline-none transition-colors font-semibold text-lg"
+              />
             </div>
             <div>
               <label className="block text-sm text-slate-300 mb-1.5">Fitur (Pisahkan dengan koma)</label>
-              <textarea name="features" required placeholder="Gratis Domain, SEO Basic, 5 Halaman, ..." className="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-3 text-white focus:border-purple-500 outline-none transition-colors h-24 resize-none"></textarea>
+              <textarea
+                name="features"
+                required
+                placeholder="Gratis Domain, SEO Basic, 5 Halaman, ..."
+                className="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-3 text-white focus:border-purple-500 outline-none transition-colors h-24 resize-none"
+              ></textarea>
             </div>
           </div>
-          <button type="submit" className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl transition-all shadow-lg shadow-blue-500/20">Simpan Produk</button>
+          <button type="submit" className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl transition-all shadow-lg shadow-blue-500/20">
+            Simpan Produk
+          </button>
         </form>
       </div>
 
@@ -47,13 +61,12 @@ export default async function ProductsPage() {
                   ))}
                 </ul>
               </div>
-              <form action={deleteItem}>
-                <input type="hidden" name="type" value="products" />
-                <input type="hidden" name="id" value={product.id} />
-                <button className="p-2.5 text-slate-500 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors">
-                  <Trash2 size={20} />
-                </button>
-              </form>
+              <div className="flex items-center gap-2">
+                <a href={`/admin/products/${product.id}/edit`} className="p-2.5 text-slate-500 hover:text-cyan-400 hover:bg-cyan-500/10 rounded-lg transition-colors" title="Edit">
+                  <Edit2 size={18} />
+                </a>
+                <DeleteForm action={deleteItem} type="products" id={product.id} />
+              </div>
             </div>
           ))
         )}
