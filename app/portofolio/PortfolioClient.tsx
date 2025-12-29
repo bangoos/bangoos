@@ -16,7 +16,7 @@ export default function PortfolioClient({ db }: PortfolioClientProps) {
 
   return (
     <PageLayout>
-      <div className="container mx-auto px-6 max-w-7xl w-full py-12">
+      <div className="container mx-auto px-6 max-w-6xl w-full py-12">
         <div className="mb-12">
           <Link href="/" className="inline-flex items-center gap-2 text-gray-400 hover:text-white mb-6 transition-colors">
             <ArrowLeft size={20} /> Kembali ke Beranda

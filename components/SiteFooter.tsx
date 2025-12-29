@@ -1,7 +1,7 @@
 export default function SiteFooter() {
   return (
     <footer className="py-8 border-t border-white/10 mt-6">
-      <div className="container mx-auto px-6 max-w-7xl grid md:grid-cols-4 gap-10">
+      <div className="container mx-auto px-6 max-w-6xl grid md:grid-cols-4 gap-10">
         {/* 50% - Brand & Description */}
         <div className="md:col-span-2">
           <div className="text-2xl font-bold tracking-tight mb-4">
@@ -90,7 +90,7 @@ export default function SiteFooter() {
       </div>
 
       {/* Copyright */}
-      <div className="container mx-auto px-6 max-w-7xl">
+      <div className="container mx-auto px-6 max-w-6xl">
         <div className="border-t border-white/10 pt-8 mt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="text-xs text-gray-500">&copy; 2025 BangOos Web Solutions. All rights reserved.</div>

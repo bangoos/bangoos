@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 export default function SiteHeader() {
   return (
     <header className="fixed w-full z-50 bg-transparent py-3 border-b border-white/5">
-      <div className="container mx-auto px-6 max-w-7xl flex justify-between items-center">
+      <div className="container mx-auto px-6 max-w-6xl flex justify-between items-center">
         <div className="text-2xl font-bold tracking-tight">
           <span className="text-white">BangOos</span>
           <span className="text-cyan-400">Web</span>

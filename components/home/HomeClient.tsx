@@ -13,7 +13,7 @@ export default function HomeClient({ db }: { db: Database }) {
   const [scrolled, setScrolled] = useState(false);
   const [modalType, setModalType] = useState<"blog" | "portfolio" | "product" | null>(null);
   const [selectedItem, setSelectedItem] = useState<any>(null);
-  const contentWrapper = "container mx-auto px-6 max-w-7xl w-full";
+  const contentWrapper = "container mx-auto px-6 max-w-6xl w-full";
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
