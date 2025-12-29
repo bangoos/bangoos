@@ -2,7 +2,7 @@ import { addBlog, deleteItem } from "@/actions/admin-actions";
 import { getDatabase } from "@/lib/vercel-blob";
 import { FormWrapper } from "@/components/admin/FormWithImagePreview";
 import type { Database } from "@/lib/types";
-import { Trash2, Calendar, Edit2, Plus, Search, Filter, FileText, TrendingUp, Clock } from "lucide-react";
+import { Trash2, Calendar, Plus, Search, Filter, FileText, TrendingUp, Clock } from "lucide-react";
 import DeleteForm from "@/components/admin/DeleteForm";
 
 export default async function BlogPage() {
@@ -110,6 +110,16 @@ export default async function BlogPage() {
                     placeholder="Tulis konten artikel di sini..."
                   ></textarea>
                 </div>
+
+                {/* Submit Button */}
+                <div className="pt-4">
+                  <button
+                    type="submit"
+                    className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-xl font-medium hover:from-blue-700 hover:to-cyan-700 transition-all duration-300 shadow-lg shadow-blue-500/25"
+                  >
+                    <Plus size={18} /> Tambah Artikel
+                  </button>
+                </div>
               </div>
             </FormWrapper>
           </div>
@@ -159,9 +169,6 @@ export default async function BlogPage() {
                         <p className="text-slate-400 text-sm mt-2 line-clamp-2">{post.content}</p>
                       </div>
                       <div className="flex items-center gap-2">
-                        <a href={`/admin/blog/${post.id}/edit`} className="group/edit relative overflow-hidden p-2.5 text-slate-400 hover:text-cyan-400 hover:bg-cyan-500/20 rounded-xl transition-all duration-300" title="Edit">
-                          <Edit2 size={18} className="group-hover/edit:scale-110 transition-transform duration-300" />
-                        </a>
                         <DeleteForm action={deleteItem} type="blog" id={post.id} />
                       </div>
                     </div>

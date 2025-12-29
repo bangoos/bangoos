@@ -2,7 +2,7 @@ import { addPortfolio, deleteItem } from "@/actions/admin-actions";
 import { getDatabase } from "@/lib/vercel-blob";
 import { FormWrapper } from "@/components/admin/FormWithImagePreview";
 import type { Database } from "@/lib/types";
-import { Edit2, Briefcase, Plus, Search, Filter, Building, GraduationCap, ShoppingBag } from "lucide-react";
+import { Plus, Search, Filter, Edit2, Trash2, Briefcase, TrendingUp, ShoppingBag, GraduationCap, Building } from "lucide-react";
 import DeleteForm from "@/components/admin/DeleteForm";
 
 export default async function PortfolioPage() {
@@ -178,9 +178,6 @@ export default async function PortfolioPage() {
                         <p className="text-slate-400 text-sm line-clamp-3">{item.description}</p>
                       </div>
                       <div className="flex items-center gap-2 ml-4">
-                        <a href={`/admin/portofolio/${item.id}/edit`} className="p-2.5 text-slate-400 hover:text-cyan-400 hover:bg-cyan-500/10 rounded-xl transition-all duration-300" title="Edit">
-                          <Edit2 size={18} />
-                        </a>
                         <DeleteForm action={deleteItem} type="portfolio" id={item.id} />
                       </div>
                     </div>

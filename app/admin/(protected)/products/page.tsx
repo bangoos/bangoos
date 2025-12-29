@@ -1,6 +1,6 @@
 import { addProduct, deleteItem } from "@/actions/admin-actions";
 import { getDatabase } from "@/lib/vercel-blob";
-import { Trash2, Check, Edit2, Package, Plus, Search, Filter } from "lucide-react";
+import { Trash2, Check, Package, Plus, Search, Filter } from "lucide-react";
 import DeleteForm from "@/components/admin/DeleteForm";
 import type { Database } from "@/lib/types";
 
@@ -160,9 +160,6 @@ export default async function ProductsPage() {
                     </ul>
                   </div>
                   <div className="flex items-center gap-2 ml-4">
-                    <a href={`/admin/products/${product.id}/edit`} className="p-2.5 text-slate-400 hover:text-purple-400 hover:bg-purple-500/10 rounded-xl transition-all duration-300" title="Edit">
-                      <Edit2 size={18} />
-                    </a>
                     <DeleteForm action={deleteItem} type="products" id={product.id} />
                   </div>
                 </div>
