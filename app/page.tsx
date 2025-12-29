@@ -3,6 +3,8 @@ import type { Database } from "@/lib/types";
 import HomeClient from "@/components/home/HomeClient";
 import type { Metadata } from "next";
 
+export const revalidate = 0; // Disable caching for this page
+
 export const metadata: Metadata = {
   title: "Jasa Website Karawang | BangOos Web - Professional Web Development",
   description: "Jasa pembuatan website profesional di Karawang. Spesialis website UMKM, toko online, company profile, web skripsi. SEO lokal Karawang, gratis hosting selamanya.",

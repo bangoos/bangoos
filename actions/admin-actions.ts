@@ -139,6 +139,9 @@ async function saveByType(formData: FormData, type: "blog" | "portfolio" | "prod
     await saveDatabase(db);
     revalidatePath("/");
     revalidatePath("/admin");
+    revalidatePath("/blog");
+    revalidatePath("/portofolio");
+    revalidatePath("/products");
     return { message: "Data Disimpan" };
   } catch (e) {
     console.error(e);
@@ -171,6 +174,9 @@ export async function deleteItem(...args: any[]) {
     await saveDatabase(db);
     revalidatePath("/");
     revalidatePath("/admin");
+    revalidatePath("/blog");
+    revalidatePath("/portofolio");
+    revalidatePath("/products");
     return { message: "Data dihapus" };
   } catch (e) {
     console.error("Gagal menghapus item", e);
@@ -258,6 +264,9 @@ export async function updateItem(...args: any[]) {
     await saveDatabase(db);
     revalidatePath("/");
     revalidatePath("/admin");
+    revalidatePath("/blog");
+    revalidatePath("/portofolio");
+    revalidatePath("/products");
     return { message: "Data diperbarui" };
   } catch (e) {
     console.error("Gagal memperbarui item", e);
