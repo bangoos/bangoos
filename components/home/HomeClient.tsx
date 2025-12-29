@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Menu, X, MessageCircle, Rocket, PlayCircle, Zap, MapPin, CheckCircle2, ArrowRight } from "lucide-react";
+import { Rocket, PlayCircle, Zap, MapPin, CheckCircle2, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import type { Database } from "@/lib/types";
 import PageLayout from "@/components/PageLayout";
@@ -11,7 +11,6 @@ import ProductModal from "@/components/modals/ProductModal";
 
 export default function HomeClient({ db }: { db: Database }) {
   const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [modalType, setModalType] = useState<"blog" | "portfolio" | "product" | null>(null);
   const [selectedItem, setSelectedItem] = useState<any>(null);
   const contentWrapper = "container mx-auto px-6 max-w-7xl w-full";
@@ -31,19 +30,23 @@ export default function HomeClient({ db }: { db: Database }) {
         </div>
         <div className={contentWrapper + " relative z-10 grid md:grid-cols-2 gap-12 items-center"}>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-            <span className="text-green-600 font-bold tracking-widest text-xs uppercase mb-4 block">Agensi Digital Karawang</span>
-            <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-6 text-slate-900">
+            <span className="inline-flex items-center gap-2 text-cyan-300 font-bold tracking-widest text-xs uppercase mb-4 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20">#1 Agensi Digital di Karawang</span>
+            <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-6 text-white">
               Solusi Digital <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-green-300">Web Solutions Karawang</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">Web Solutions</span>
             </h1>
-            <p className="text-slate-600 text-lg mb-8">Website super cepat, SEO lokal, dan gratis hosting selamanya. Spesialis untuk UMKM & Skripsi.</p>
+            <p className="text-gray-400 text-lg mb-8">Website super cepat, SEO lokal Karawang, dan gratis hosting selamanya. Spesialis UMKM, Skripsi, dan Profil Kantor.</p>
             <div className="flex flex-col sm:flex-row gap-4">
               <a href="https://wa.me/6281234567890" className="btn btn-primary px-8 py-4 rounded-xl font-bold shadow-lg flex items-center justify-center gap-3">
                 <Rocket size={20} /> Mulai Sekarang
               </a>
               <a href="#portofolio" className="btn btn-ghost px-8 py-4 rounded-xl font-semibold flex items-center justify-center gap-2">
-                <PlayCircle size={20} /> Portofolio
+                <PlayCircle size={20} /> Lihat Portofolio
               </a>
+            </div>
+            <div className="flex items-center gap-6 mt-6 text-sm">
+              <div className="flex items-center gap-2 text-green-400"><span className="w-2 h-2 rounded-full bg-green-400" /> Gratis Hosting</div>
+              <div className="flex items-center gap-2 text-green-400"><span className="w-2 h-2 rounded-full bg-green-400" /> Garansi SEO</div>
             </div>
           </motion.div>
         </div>
@@ -83,11 +86,10 @@ export default function HomeClient({ db }: { db: Database }) {
         <div className={contentWrapper}>
           <div className="flex justify-between items-end mb-12">
             <div>
-              <h2 className="text-3xl font-bold">
-                Karya <span className="text-cyan-400">Terbaru</span>
-              </h2>
-              <p className="text-gray-400 mt-2">Hasil kerja nyata kami.</p>
+              <h2 className="text-3xl font-bold">Karya <span className="text-cyan-400">Terbaru</span></h2>
+              <p className="text-gray-400 mt-2">Hasil kerja nyata untuk client di Karawang.</p>
             </div>
+            <a href="#" className="hidden md:flex items-center text-sm text-blue-400 hover:text-blue-300 font-semibold">Lihat Semua <ArrowRight size={16} className="ml-1" /></a>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             {db.portfolio.map((item, i) => (
@@ -104,8 +106,8 @@ export default function HomeClient({ db }: { db: Database }) {
                   <div className="absolute inset-0 bg-black/12 group-hover:bg-transparent transition-colors" />
                 </div>
                 <div className="p-6">
-                  <span className="text-xs font-bold text-green-600 uppercase tracking-wide">{item.category}</span>
-                  <h3 className="text-xl font-bold mt-2 group-hover:text-green-500 transition-colors text-slate-800">{item.title}</h3>
+                  <span className="text-xs font-bold text-cyan-400 uppercase tracking-wide">{item.category}</span>
+                  <h3 className="text-xl font-bold mt-2 group-hover:text-cyan-400 transition-colors text-white">{item.title}</h3>
                 </div>
               </button>
             ))}
@@ -117,10 +119,8 @@ export default function HomeClient({ db }: { db: Database }) {
         <div className={contentWrapper}>
           <div className="flex justify-between items-end mb-12">
             <div>
-              <h2 className="text-3xl font-bold">
-                Artikel <span className="text-green-600">Terbaru</span>
-              </h2>
-              <p className="text-slate-600 mt-2">Wawasan terbaru seputar Web & Bisnis.</p>
+              <h2 className="text-3xl font-bold">Artikel <span className="text-cyan-400">& Tips</span></h2>
+              <p className="text-gray-400 mt-2">Wawasan terbaru seputar Web & Bisnis.</p>
             </div>
             <a href="#" className="hidden md:flex items-center text-sm text-blue-400 hover:text-blue-300 font-semibold">
               Lihat Semua <ArrowRight size={16} className="ml-1" />
@@ -142,14 +142,14 @@ export default function HomeClient({ db }: { db: Database }) {
                   <div className="absolute bottom-0 left-0 bg-green-500 text-white text-xs font-bold px-3 py-1 m-4 rounded-full z-10">{item.date}</div>
                 </div>
                 <div className="p-8">
-                  <h3 className="text-2xl font-bold mb-3 group-hover:text-green-500 transition-colors text-slate-800">{item.title}</h3>
-                  <p className="text-slate-600 leading-relaxed line-clamp-2 mb-6">{item.content}</p>
+                  <h3 className="text-2xl font-bold mb-3 group-hover:text-cyan-400 transition-colors text-white">{item.title}</h3>
+                  <p className="text-gray-300 leading-relaxed line-clamp-2 mb-6">{item.content}</p>
                   <button
                     onClick={() => {
                       setModalType("blog");
                       setSelectedItem(item);
                     }}
-                    className="inline-flex items-center text-sm font-semibold text-green-600 hover:text-green-500"
+                    className="inline-flex items-center text-sm font-semibold text-cyan-400 hover:text-cyan-300"
                   >
                     Baca Selengkapnya <ArrowRight size={16} className="ml-2" />
                   </button>
@@ -162,9 +162,7 @@ export default function HomeClient({ db }: { db: Database }) {
 
       <section id="pricing" className="py-20">
         <div className={contentWrapper}>
-          <h2 className="text-3xl font-bold mb-12 text-center">
-            Paket <span className="text-green-600">Harga</span>
-          </h2>
+          <h2 className="text-3xl font-bold mb-12 text-center">Investasi <span className="text-cyan-400">Terbaik</span></h2>
           <div className="grid md:grid-cols-3 gap-8 items-center">
             {/* Modals */}
             <BlogModal
@@ -192,8 +190,8 @@ export default function HomeClient({ db }: { db: Database }) {
               item={modalType === "product" ? selectedItem : null}
             />
             {db.products.map((p, i) => (
-              <div key={p.id} className={`rounded-3xl ${i === 1 ? "p-8 bg-gradient-to-b from-blue-900/20 to-slate-900 border-blue-500/50 shadow-2xl shadow-blue-900/20 scale-105" : "cloud-panel"}`}>
-                {i === 1 && <div className="text-center mb-4 text-blue-400 font-bold text-xs uppercase tracking-wider">Paling Populer</div>}
+              <div key={p.id} className={`rounded-3xl ${i === 1 ? "p-8 bg-gradient-to-b from-blue-900/20 to-[#0F1628] border-blue-500/50 shadow-2xl shadow-blue-900/20 scale-105" : "cloud-panel"}`}>
+                {i === 1 && <div className="text-center mb-4 text-blue-400 font-bold text-xs uppercase tracking-wider">Paling Laris</div>}
                 <h3 className="text-xl font-bold mb-2">{p.name}</h3>
                 <div className="text-3xl font-bold mb-4 text-white">{p.price}</div>
                 <ul className="space-y-3 mb-8 text-gray-400 text-sm">
@@ -210,7 +208,7 @@ export default function HomeClient({ db }: { db: Database }) {
                   }}
                   className={`block w-full text-center py-3 rounded-xl font-bold transition-colors ${i === 1 ? "btn btn-primary" : "btn"}`}
                 >
-                  Pilih Paket
+                  {i === 1 ? "Paling Laris" : "Pilih Paket"}
                 </button>
               </div>
             ))}

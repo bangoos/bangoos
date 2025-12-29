@@ -3,7 +3,7 @@ import SiteFooter from "./SiteFooter";
 
 export default function PageLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="bg-slate-950 text-slate-50 min-h-screen">
+    <div className="bg-[#0B1220] text-slate-50 min-h-screen">
       <SiteHeader />
       <div className="pt-24">{children}</div>
       <SiteFooter />

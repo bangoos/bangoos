@@ -20,7 +20,13 @@ export default async function BlogPage() {
             </div>
             <div>
               <label className="block text-sm text-slate-600 mb-1.5">Slug (URL)</label>
-              <input name="slug" type="text" required className="w-full bg-transparent border border-slate-300 rounded-lg px-4 py-3 text-slate-800 focus:border-blue-500 outline-none transition-colors lowercase" placeholder="judul-artikel" />
+              <input
+                name="slug"
+                type="text"
+                required
+                className="w-full bg-transparent border border-slate-300 rounded-lg px-4 py-3 text-slate-800 focus:border-blue-500 outline-none transition-colors lowercase"
+                placeholder="judul-artikel"
+              />
             </div>
             <div>
               <label className="block text-sm text-slate-600 mb-1.5">Konten</label>

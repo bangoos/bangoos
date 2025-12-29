@@ -14,9 +14,7 @@ export default function Modal({ open, onClose, title, children }: { open: boolea
       } else if (e.key === "Tab" && modalRef.current) {
         // simple focus trap
         const focusable = Array.from(
-          modalRef.current.querySelectorAll<HTMLElement>(
-            'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), [tabindex]:not([tabindex="-1"])'
-          )
+          modalRef.current.querySelectorAll<HTMLElement>('a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), [tabindex]:not([tabindex="-1"])')
         ).filter(Boolean);
         if (focusable.length === 0) {
           e.preventDefault();
@@ -63,14 +61,7 @@ export default function Modal({ open, onClose, title, children }: { open: boolea
           transition={{ duration: reduce ? 0 : 0.18 }}
           aria-hidden={!open}
         >
-          <motion.div
-            className="absolute inset-0 bg-black/60"
-            onClick={onClose}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: reduce ? 0 : 0.18 }}
-          />
+          <motion.div className="absolute inset-0 bg-black/60" onClick={onClose} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: reduce ? 0 : 0.18 }} />
 
           <motion.div
             role="dialog"
