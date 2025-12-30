@@ -1,13 +1,13 @@
 {
   "blog": [
     {
-      "id": "blog-1767051767020-838piz",
-      "title": "yuyuiyiu",
-      "slug": "artikel-yuyuiyiu",
-      "content": "fguygyui",
-      "image": "https://images.unsplash.com/photo-1767051767683?w=800&h=600&fit=crop&auto=format&q=80",
+      "id": "blog-1767056040430-dsi25d",
+      "title": "TES BLOG",
+      "slug": "artikel-tes-blog",
+      "content": "QWEWQEQ",
+      "image": "https://wnawidjgedkiiystwuuq.supabase.co/storage/v1/object/public/images/1767056040228-Cuplikanlayar2025-12-29210148.png",
       "date": "30/12/2025",
-      "created_at": "2025-12-29T23:42:45.687263"
+      "created_at": "2025-12-30T00:54:00.440145"
     },
     {
       "id": "blog-1767054572325-zk2rgv",
@@ -15,10 +15,29 @@
       "slug": "artikel-sadsadsa",
       "content": "sdasdas",
       "image": "https://images.unsplash.com/photo-1767054572325?w=800&h=600&fit=crop&auto=format",
-      "date": "30/12/2025"
+      "date": "30/12/2025",
+      "created_at": "2025-12-30T00:29:32.353164"
+    },
+    {
+      "id": "blog-1767051767020-838piz",
+      "title": "yuyuiyiu",
+      "slug": "artikel-yuyuiyiu",
+      "content": "fguygyui",
+      "image": "https://images.unsplash.com/photo-1767051767683?w=800&h=600&fit=crop&auto=format&q=80",
+      "date": "30/12/2025",
+      "created_at": "2025-12-29T23:42:45.687263"
     }
   ],
   "portfolio": [
+    {
+      "id": "portfolio-1767056055914-vsnyrn",
+      "title": "TES PORTO",
+      "description": "SADSDA",
+      "category": "UMKM",
+      "image": "https://wnawidjgedkiiystwuuq.supabase.co/storage/v1/object/public/images/1767056055681-Cuplikanlayar2025-12-29211328.png",
+      "slug": "portfolio-tes-porto",
+      "created_at": "2025-12-30T00:54:15.917671"
+    },
     {
       "id": "portfolio-1767051747317-m9rbmg",
       "title": "tes",
@@ -38,6 +57,14 @@
         "fgfjhfghgjgjk"
       ],
       "created_at": "2025-12-29T23:42:09.456183"
+    },
+    {
+      "id": "product-1767056064249-7f43sf",
+      "name": "GRATIS",
+      "price": "Rp 5.000.000",
+      "features": [
+        "SADSAD"
+      ]
     }
   ]
 }

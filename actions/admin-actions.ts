@@ -269,9 +269,30 @@ export async function deleteItem(...args: any[]) {
     else if (type === "portfolio") db.portfolio = db.portfolio.filter((i) => i.id !== id);
     else if (type === "products") db.products = db.products.filter((i) => i.id !== id);
 
-    // Save to Supabase - For now, just log success
-    // TODO: Implement proper Supabase operations
-    console.log("Data saved successfully to Supabase");
+    // Save updated database to local file
+    try {
+      const fs = require("fs").promises;
+      const path = require("path");
+      const LOCAL_DB_PATH = path.join(process.cwd(), "db.json");
+
+      // Write updated database to local file
+      await fs.writeFile(LOCAL_DB_PATH, JSON.stringify(db, null, 2));
+      console.log("Database updated (deleted) and saved to:", LOCAL_DB_PATH);
+
+      // Also try to delete from Supabase if available
+      if (supabase) {
+        try {
+          const { error } = await supabase.from(type).delete().eq("id", id);
+          if (error) console.warn("Supabase delete failed:", error);
+          else console.log("Item deleted from Supabase successfully");
+        } catch (supabaseError) {
+          console.warn("Supabase delete error:", supabaseError);
+        }
+      }
+    } catch (saveError) {
+      console.error("Failed to save database after deletion:", saveError);
+      return { error: "Gagal menyimpan perubahan" };
+    }
 
     // Force revalidate all paths to ensure immediate updates
     const paths = ["/", "/admin", "/blog", "/portofolio", "/products"];
