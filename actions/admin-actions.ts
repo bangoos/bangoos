@@ -3,7 +3,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import { supabase } from "@/lib/supabase";
+import { supabase, supabaseService } from "@/lib/supabase";
 import { getDatabase } from "@/lib/vercel-blob";
 
 // Better ID generation function
@@ -78,17 +78,53 @@ export async function uploadImage(fd: FormData): Promise<string> {
   const f = fd.get("file") as File;
   if (!f) throw new Error("No file");
 
-  // Ultimate solution: Always use Unsplash (no storage required)
-  // This bypasses all storage permission issues
-  const randomId = Date.now() + Math.floor(Math.random() * 1000);
-  const width = 800;
-  const height = 600;
+  // Try service role for storage operations (bypass RLS)
+  if (supabaseService) {
+    try {
+      // First, ensure bucket exists
+      const { error: bucketError } = await supabaseService.storage.getBucket("images");
+      if (bucketError) {
+        console.log("Creating bucket with service role...");
+        const { error: createError } = await supabaseService.storage.createBucket("images", {
+          public: true,
+          fileSizeLimit: 52428800,
+          allowedMimeTypes: ["image/jpeg", "image/png", "image/gif", "image/webp"],
+        });
 
-  // Generate high-quality Unsplash image URL
-  const unsplashUrl = `https://images.unsplash.com/photo-${randomId}?w=${width}&h=${height}&fit=crop&auto=format&q=80`;
+        if (createError && !createError.message.includes("already exists")) {
+          console.warn("Failed to create bucket:", createError);
+        } else {
+          console.log("Bucket created successfully");
+        }
+      }
 
-  console.log("Generated Unsplash image URL:", unsplashUrl);
-  return unsplashUrl;
+      // Upload image
+      const fileName = `${Date.now()}-${f.name.replace(/[^a-zA-Z0-9.-]/g, "")}`;
+      const { data, error } = await supabaseService.storage.from("images").upload(fileName, f, {
+        cacheControl: "3600",
+        upsert: false,
+      });
+
+      if (error) {
+        console.warn("Service role upload failed:", error);
+        return getFallbackImage();
+      }
+
+      // Get public URL
+      const {
+        data: { publicUrl },
+      } = supabaseService.storage.from("images").getPublicUrl(fileName);
+
+      console.log("✅ Image uploaded to Supabase with service role:", publicUrl);
+      return publicUrl;
+    } catch (storageError) {
+      console.warn("Service role storage error:", storageError);
+      return getFallbackImage();
+    }
+  }
+
+  // Fallback to Unsplash
+  return getFallbackImage();
 }
 
 function getFallbackImage(): string {
