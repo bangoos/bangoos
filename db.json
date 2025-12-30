@@ -21,15 +21,5 @@
       "created_at": "2025-12-30T00:54:15.917671"
     }
   ],
-  "products": [
-    {
-      "id": "product-1767051730771-w3gm6i",
-      "name": "Paket Bisnis",
-      "price": "Rp 5.000.000",
-      "features": [
-        "fgfjhfghgjgjk"
-      ],
-      "created_at": "2025-12-29T23:42:09.456183"
-    }
-  ]
+  "products": []
 }

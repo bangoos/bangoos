@@ -1,26 +1,29 @@
 "use client";
 import { useActionState } from "react";
 import { useRef, useState } from "react";
-import { Trash2 } from "lucide-react";
+import { Trash2, CheckCircle, XCircle } from "lucide-react";
 
 type ServerAction = (prev: unknown, formData: FormData) => Promise<{ message?: string; error?: string } | void>;
 
 export default function DeleteForm({ action, type, id }: { action: ServerAction; type: string; id: string }) {
   const [state, act] = useActionState(action, null);
   const [open, setOpen] = useState(false);
-  const [showNotification, setShowNotification] = useState(false);
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
   const formRef = useRef<HTMLFormElement | null>(null);
 
   function onConfirm() {
     // submit the form programmatically which will call the server action
     formRef.current?.requestSubmit();
-    // Don't close modal immediately - let user see the result
+    // Close modal immediately
+    setOpen(false);
+    // Show success popup after a short delay
     setTimeout(() => {
-      setOpen(false);
-      setShowNotification(true);
-      // Hide notification after 3 seconds
-      setTimeout(() => setShowNotification(false), 3000);
-    }, 500);
+      if (state?.message) {
+        setShowSuccessPopup(true);
+        // Hide popup after 3 seconds
+        setTimeout(() => setShowSuccessPopup(false), 3000);
+      }
+    }, 300);
   }
 
   return (
@@ -33,14 +36,37 @@ export default function DeleteForm({ action, type, id }: { action: ServerAction;
         </button>
       </form>
 
-      {/* Persistent Notification */}
-      {(state?.message || state?.error) && showNotification && (
-        <div className="fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg max-w-sm animate-pulse">
-          {state?.message && <div className="text-green-400 text-sm font-medium bg-green-500/10 border border-green-500/30 p-3 rounded-lg">✅ {state.message}</div>}
-          {state?.error && <div className="text-red-400 text-sm font-medium bg-red-500/10 border border-red-500/30 p-3 rounded-lg">❌ {state.error}</div>}
+      {/* Success Popup */}
+      {showSuccessPopup && state?.message && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none">
+          <div className="bg-green-500/95 backdrop-blur-sm text-white p-6 rounded-2xl shadow-2xl max-w-sm mx-4 transform animate-pulse">
+            <div className="flex items-center gap-3">
+              <CheckCircle size={24} className="flex-shrink-0" />
+              <div>
+                <h3 className="font-bold text-lg">Berhasil!</h3>
+                <p className="text-green-100">{state.message}</p>
+              </div>
+            </div>
+          </div>
         </div>
       )}
 
+      {/* Error Popup */}
+      {state?.error && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none">
+          <div className="bg-red-500/95 backdrop-blur-sm text-white p-6 rounded-2xl shadow-2xl max-w-sm mx-4 transform animate-pulse">
+            <div className="flex items-center gap-3">
+              <XCircle size={24} className="flex-shrink-0" />
+              <div>
+                <h3 className="font-bold text-lg">Error!</h3>
+                <p className="text-red-100">{state.error}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Confirmation Modal */}
       {open && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
           <div className="absolute inset-0 bg-black/50" onClick={() => setOpen(false)} />
