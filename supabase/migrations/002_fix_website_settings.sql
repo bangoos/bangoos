@@ -1,5 +1,8 @@
+-- Clean up existing table and recreate
+DROP TABLE IF EXISTS website_settings CASCADE;
+
 -- Create website_settings table
-CREATE TABLE IF NOT EXISTS website_settings (
+CREATE TABLE website_settings (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   site_title TEXT NOT NULL DEFAULT 'BangOos - Digital Agency',
   site_description TEXT NOT NULL DEFAULT 'Digital agency yang menyediakan solusi teknologi modern',
@@ -51,12 +54,11 @@ CREATE POLICY "Enable insert for authenticated users" ON website_settings
 CREATE POLICY "Enable delete for authenticated users" ON website_settings
   FOR DELETE USING (auth.role() = 'authenticated');
 
--- Insert default settings if table is empty
+-- Insert default settings
 INSERT INTO website_settings (
   site_title, site_description, logo_url, favicon_url, 
   footer_text, footer_links, social_media, contact_info
-) 
-SELECT 
+) VALUES (
   'BangOos - Digital Agency',
   'Digital agency yang menyediakan solusi teknologi modern',
   '/logo.png',
@@ -81,4 +83,4 @@ SELECT
     "phone": "+62 812-3456-7890",
     "address": "Jakarta, Indonesia"
   }'
-WHERE NOT EXISTS (SELECT 1 FROM website_settings);
+);
