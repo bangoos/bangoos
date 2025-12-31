@@ -1,5 +1,14 @@
 {
-  "blog": [],
+  "blog": [
+    {
+      "id": "save-test-1767165918955",
+      "title": "Save Test Entry",
+      "slug": "save-test-1767165918955",
+      "content": "Test content for save function",
+      "image": "https://example.com/save-test.jpg",
+      "date": "31/12/2025"
+    }
+  ],
   "portfolio": [],
   "products": []
 }
