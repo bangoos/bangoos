@@ -172,10 +172,12 @@ export default function ProtectedAdminLayout({ children }: { children: React.Rea
           <button onClick={() => setSidebarOpen(true)} className="text-slate-400 hover:text-white transition-colors">
             <Menu size={24} />
           </button>
-          <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-xl flex items-center justify-center">
-            <Layout size={20} className="text-white" />
-          </div>
-          <span className="font-bold text-white">BangOos Admin</span>
+          <button onClick={() => setSidebarOpen(!sidebarOpen)} className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-xl flex items-center justify-center hover:scale-105 transition-transform duration-200">
+              <Layout size={20} className="text-white" />
+            </div>
+            <span className="font-bold text-white">BangOos Admin</span>
+          </button>
         </div>
         <Link href="/admin" className="text-slate-400 hover:text-white transition-colors">
           <Home size={24} />
