@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Settings, Save, Upload, Globe, Image, Link2, Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin, Youtube } from "lucide-react";
 import { useSettings } from "@/hooks/useSettings";
 import { WebsiteSettings } from "@/types/settings";
@@ -9,20 +9,25 @@ export default function SettingsPage() {
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
 
-  const { settings, saveSettings } = useSettings();
+  const { settings, saveSettings, isLoading, resetSettings } = useSettings();
 
   // Local form state
   const [formData, setFormData] = useState<WebsiteSettings>(settings);
+
+  // Update form data when settings change
+  useEffect(() => {
+    setFormData(settings);
+  }, [settings]);
 
   const handleSave = async () => {
     setSaving(true);
     setSaved(false);
 
-    // Save to localStorage via hook
-    saveSettings(formData);
+    // Save to Supabase via hook
+    await saveSettings(formData);
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    // Simulate API call delay
+    await new Promise((resolve) => setTimeout(resolve, 1000));
 
     setSaving(false);
     setSaved(true);
@@ -53,12 +58,34 @@ export default function SettingsPage() {
     });
   };
 
+  const handleReset = async () => {
+    setSaving(true);
+    setSaved(false);
+
+    // Reset to default via hook
+    await resetSettings();
+
+    // Simulate API call delay
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    setSaving(false);
+    setSaved(true);
+
+    setTimeout(() => setSaved(false), 3000);
+  };
+
   return (
     <div className="p-6 max-w-6xl mx-auto">
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-white mb-2">Pengaturan Website</h1>
         <p className="text-slate-400">Kelola konfigurasi website, logo, footer, dan media sosial</p>
+        {isLoading && (
+          <div className="mt-4 flex items-center gap-2 text-blue-400">
+            <div className="w-4 h-4 border-2 border-blue-400/30 border-t-blue-400 rounded-full animate-spin" />
+            <span className="font-medium">Memuat pengaturan...</span>
+          </div>
+        )}
       </div>
 
       {/* Tabs */}
@@ -314,18 +341,26 @@ export default function SettingsPage() {
 
         {/* Save Button */}
         <div className="flex items-center justify-between mt-8 pt-8 border-t border-slate-700/50">
-          <div>
+          <div className="flex items-center gap-4">
             {saved && (
               <div className="flex items-center gap-2 text-green-400">
                 <Settings size={18} />
                 <span className="font-medium">Pengaturan berhasil disimpan!</span>
               </div>
             )}
+            <button
+              onClick={handleReset}
+              disabled={saving || isLoading}
+              className="px-4 py-2 bg-slate-600 hover:bg-slate-700 disabled:from-slate-600 disabled:to-slate-700 text-white rounded-xl font-medium transition-all duration-200 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <Settings size={16} />
+              Reset ke Default
+            </button>
           </div>
 
           <button
             onClick={handleSave}
-            disabled={saving}
+            disabled={saving || isLoading}
             className="px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 disabled:from-slate-600 disabled:to-slate-700 text-white rounded-xl font-medium transition-all duration-200 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {saving ? (
@@ -336,7 +371,7 @@ export default function SettingsPage() {
             ) : (
               <>
                 <Save size={18} />
-                Simpan Pengaturan
+                Simpan ke Supabase
               </>
             )}
           </button>
