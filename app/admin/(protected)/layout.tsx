@@ -169,17 +169,17 @@ export default function ProtectedAdminLayout({ children }: { children: React.Rea
       {/* Mobile Header */}
       <div className="md:hidden fixed top-0 w-full z-30 bg-gradient-to-r from-slate-900/95 to-slate-800/95 backdrop-blur-xl border-b border-slate-700/50 p-4 flex justify-between items-center">
         <div className="flex items-center gap-3">
-          <button onClick={() => setSidebarOpen(true)} className="text-slate-400 hover:text-white transition-colors">
+          <button onClick={() => setSidebarOpen(true)} className="text-slate-400 hover:text-white transition-colors p-2 rounded-lg hover:bg-slate-700/50">
             <Menu size={24} />
           </button>
-          <button onClick={() => setSidebarOpen(!sidebarOpen)} className="flex items-center gap-3">
+          <button onClick={() => setSidebarOpen(!sidebarOpen)} className="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-700/50 transition-all duration-200 cursor-pointer" style={{ WebkitTapHighlightColor: "transparent" }}>
             <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-xl flex items-center justify-center hover:scale-105 transition-transform duration-200">
               <Layout size={20} className="text-white" />
             </div>
-            <span className="font-bold text-white">BangOos Admin</span>
+            <span className="font-bold text-white select-none">BangOos Admin</span>
           </button>
         </div>
-        <Link href="/admin" className="text-slate-400 hover:text-white transition-colors">
+        <Link href="/admin" className="text-slate-400 hover:text-white transition-colors p-2 rounded-lg hover:bg-slate-700/50">
           <Home size={24} />
         </Link>
       </div>
