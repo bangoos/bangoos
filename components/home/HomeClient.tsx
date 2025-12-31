@@ -23,130 +23,268 @@ export default function HomeClient({ db }: { db: Database }) {
 
   return (
     <PageLayout>
-      <section id="beranda" className="relative min-h-[60vh] flex items-center">
+      <section id="beranda" className="relative min-h-[85vh] flex items-center overflow-hidden">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <motion.div animate={{ y: [0, -50, 0], opacity: [0.18, 0.45, 0.18] }} transition={{ duration: 7, repeat: Infinity }} className="absolute top-20 left-10 w-72 h-72 bg-cyan-500 rounded-full blur-3xl mix-blend-screen" />
-          <motion.div animate={{ y: [0, 50, 0], opacity: [0.18, 0.45, 0.18] }} transition={{ duration: 8, repeat: Infinity }} className="absolute top-40 right-10 w-96 h-96 bg-blue-200 rounded-full blur-3xl mix-blend-screen" />
+          <motion.div
+            animate={{ y: [0, -50, 0], opacity: [0.18, 0.45, 0.18] }}
+            transition={{ duration: 7, repeat: Infinity }}
+            className="absolute top-20 left-10 w-96 h-96 bg-gradient-to-r from-cyan-500/30 to-blue-500/30 rounded-full blur-3xl mix-blend-screen"
+          />
+          <motion.div
+            animate={{ y: [0, 50, 0], opacity: [0.18, 0.45, 0.18] }}
+            transition={{ duration: 8, repeat: Infinity }}
+            className="absolute top-40 right-10 w-[32rem] h-[32rem] bg-gradient-to-r from-blue-400/30 to-purple-500/30 rounded-full blur-3xl mix-blend-screen"
+          />
+          <motion.div
+            animate={{ x: [0, 30, 0], opacity: [0.12, 0.35, 0.12] }}
+            transition={{ duration: 9, repeat: Infinity }}
+            className="absolute bottom-20 left-1/2 w-80 h-80 bg-gradient-to-r from-purple-500/25 to-pink-500/25 rounded-full blur-3xl mix-blend-screen"
+          />
         </div>
-        <div className={contentWrapper + " relative z-10 grid md:grid-cols-2 gap-8 items-center"}>
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-            <span className="inline-flex items-center gap-2 text-cyan-300 font-bold tracking-widest text-xs uppercase mb-4 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20">#1 Agensi Digital di Karawang</span>
-            <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-6 text-white">
-              Solusi Digital <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">Web Solutions</span>
-            </h1>
-            <p className="text-gray-400 text-lg mb-8">Website super cepat, SEO lokal Karawang, dan gratis hosting selamanya. Spesialis UMKM, Skripsi, dan Profil Kantor.</p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <a href="https://wa.me/6281234567890" className="btn btn-primary px-8 py-4 rounded-xl font-bold shadow-lg flex items-center justify-center gap-3">
-                <Rocket size={20} /> Mulai Sekarang
-              </a>
-              <a href="#portofolio" className="btn btn-ghost px-8 py-4 rounded-xl font-semibold flex items-center justify-center gap-2">
-                <PlayCircle size={20} /> Lihat Portofolio
-              </a>
+
+        {/* Animated Background Pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div
+            className="absolute inset-0 bg-repeat"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+            }}
+          />
+        </div>
+
+        <div className={contentWrapper + " relative z-10 grid lg:grid-cols-2 gap-12 items-center"}>
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="space-y-8">
+            <div className="space-y-4">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="inline-flex items-center gap-3 text-cyan-300 font-bold tracking-wider text-sm uppercase mb-6 px-4 py-2 rounded-full bg-gradient-to-r from-cyan-500/10 to-blue-500/10 border border-cyan-500/30 backdrop-blur-sm"
+              >
+                <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+                #1 Agensi Digital di Karawang
+                <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+              </motion.div>
+
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-black leading-tight mb-6">
+                <span className="text-white block mb-2">Solusi Digital</span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-purple-400 animate-gradient bg-300">Web Solutions</span>
+              </h1>
+
+              <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.4 }} className="text-gray-300 text-xl md:text-2xl leading-relaxed mb-8 max-w-2xl">
+                Website super cepat, <span className="text-cyan-400 font-semibold">SEO lokal Karawang #1</span>, dan gratis hosting selamanya. Spesialis UMKM, Skripsi, dan Profil Kantor profesional.
+              </motion.p>
             </div>
-            <div className="flex items-center gap-6 mt-6 text-sm">
-              <div className="flex items-center gap-2 text-cyan-400">
-                <span className="w-2 h-2 rounded-full bg-cyan-400" /> Gratis Hosting
+
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.6 }} className="flex flex-col sm:flex-row gap-4">
+              <motion.a
+                href="https://wa.me/6281234567890"
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                className="group relative px-8 py-4 rounded-2xl font-bold text-lg shadow-2xl flex items-center justify-center gap-3 bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-600 hover:from-blue-700 hover:via-cyan-700 hover:to-blue-700 transition-all duration-300 overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <Rocket size={24} className="relative z-10" />
+                <span className="relative z-10">Mulai Sekarang</span>
+              </motion.a>
+
+              <motion.a
+                href="#portofolio"
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                className="group px-8 py-4 rounded-2xl font-semibold text-lg flex items-center justify-center gap-3 border-2 border-cyan-500/50 hover:border-cyan-400 bg-cyan-500/10 hover:bg-cyan-500/20 backdrop-blur-sm transition-all duration-300"
+              >
+                <PlayCircle size={24} />
+                <span>Lihat Portofolio</span>
+              </motion.a>
+            </motion.div>
+
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.8 }} className="flex flex-wrap gap-6 text-sm">
+              <div className="flex items-center gap-3 text-cyan-400 font-medium">
+                <div className="w-3 h-3 rounded-full bg-gradient-to-r from-cyan-400 to-blue-400 animate-pulse" />
+                <span>Gratis Hosting Selamanya</span>
               </div>
-              <div className="flex items-center gap-2 text-cyan-400">
-                <span className="w-2 h-2 rounded-full bg-cyan-400" /> Garansi SEO
+              <div className="flex items-center gap-3 text-cyan-400 font-medium">
+                <div className="w-3 h-3 rounded-full bg-gradient-to-r from-cyan-400 to-blue-400 animate-pulse" />
+                <span>Garansi Halaman 1 Google</span>
               </div>
-            </div>
+              <div className="flex items-center gap-3 text-cyan-400 font-medium">
+                <div className="w-3 h-3 rounded-full bg-gradient-to-r from-cyan-400 to-blue-400 animate-pulse" />
+                <span>Support 24/7</span>
+              </div>
+            </motion.div>
           </motion.div>
-          <motion.div initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1, delay: 0.5 }} className="hidden md:block relative">
+
+          <motion.div initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1, delay: 0.5 }} className="hidden lg:block relative">
             <div className="relative w-full h-full flex items-center justify-center">
-              <div className="bg-gradient-to-br from-blue-600/20 to-cyan-600/20 backdrop-blur-xl border border-cyan-500/30 rounded-2xl p-8 shadow-2xl shadow-cyan-500/10">
-                <div className="text-center">
-                  <div className="text-6xl mb-4">🚀</div>
-                  <h3 className="text-xl font-bold text-white mb-2">Siap Launch!</h3>
-                  <p className="text-cyan-300 text-sm">Website profesional Anda siap dalam 24 jam</p>
-                  <div className="flex justify-center gap-2 mt-4">
-                    <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
-                    <div className="w-2 h-2 rounded-full bg-yellow-400 animate-pulse" style={{ animationDelay: "0.5s" }}></div>
-                    <div className="w-2 h-2 rounded-full bg-red-400 animate-pulse" style={{ animationDelay: "1s" }}></div>
+              <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 3, repeat: Infinity }} className="relative">
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-600/30 to-cyan-600/30 backdrop-blur-2xl border-2 border-cyan-500/30 rounded-3xl p-8 shadow-2xl shadow-cyan-500/20" />
+                <div className="relative bg-gradient-to-br from-blue-900/50 to-cyan-900/50 backdrop-blur-xl border border-cyan-400/20 rounded-3xl p-8 shadow-2xl">
+                  <div className="text-center space-y-6">
+                    <motion.div animate={{ rotate: [0, 5, -5, 0] }} transition={{ duration: 4, repeat: Infinity }} className="text-7xl md:text-8xl">
+                      🚀
+                    </motion.div>
+                    <div className="space-y-3">
+                      <h3 className="text-2xl font-black text-white">Siap Launch!</h3>
+                      <p className="text-cyan-300 text-lg font-medium">Website profesional Anda siap dalam 24 jam</p>
+                    </div>
+                    <div className="flex justify-center gap-3">
+                      <div className="w-3 h-3 rounded-full bg-green-400 animate-pulse shadow-lg shadow-green-400/50"></div>
+                      <div className="w-3 h-3 rounded-full bg-yellow-400 animate-pulse shadow-lg shadow-yellow-400/50" style={{ animationDelay: "0.5s" }}></div>
+                      <div className="w-3 h-3 rounded-full bg-red-400 animate-pulse shadow-lg shadow-red-400/50" style={{ animationDelay: "1s" }}></div>
+                    </div>
+                    <div className="pt-4 border-t border-cyan-500/30">
+                      <div className="flex items-center justify-center gap-4 text-sm text-gray-400">
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 bg-green-400 rounded-full" />
+                          <span>Active</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 bg-cyan-400 rounded-full" />
+                          <span>Ready</span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </div>
           </motion.div>
         </div>
       </section>
 
-      <section id="layanan" className="py-8">
-        <div className={contentWrapper}>
-          <h2 className="text-3xl font-bold mb-8 text-center">
-            Jasa <span className="text-cyan-400">Website Profesional</span>
-          </h2>
+      <section id="layanan" className="py-16 relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-900/10 to-transparent" />
+        <div className={contentWrapper + " relative z-10"}>
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-black mb-6">
+              Jasa <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">Website Profesional</span>
+            </h2>
+            <p className="text-gray-300 text-xl max-w-3xl mx-auto">Solusi website lengkap untuk berbagai kebutuhan bisnis Anda di Karawang</p>
+          </motion.div>
+
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { icon: Zap, t: "Website UMKM", d: "Toko Online & Company Profile" },
-              { icon: MapPin, t: "SEO Karawang", d: "Optimasi Lokal #1 Karawang" },
-              { icon: CheckCircle2, t: "Web Skripsi", d: "Tugas Akhir & Kampus" },
+              {
+                icon: Zap,
+                t: "Website UMKM",
+                d: "Toko Online & Company Profile untuk UMKM Karawang",
+                features: ["Responsive Design", "SEO Basic", "WhatsApp Integration", "Free Domain"],
+                gradient: "from-orange-500 to-red-500",
+              },
+              {
+                icon: MapPin,
+                t: "SEO Karawang",
+                d: "Optimasi Lokal #1 Karawang - Garansi Halaman 1 Google",
+                features: ["Local SEO", "Google Maps", "Keyword Research", "Analytics"],
+                gradient: "from-blue-500 to-cyan-500",
+              },
+              {
+                icon: CheckCircle2,
+                t: "Web Skripsi",
+                d: "Tugas Akhir & Kampus - Source Code Lengkap",
+                features: ["Full Documentation", "Source Code", "Guidance", "Revisi Support"],
+                gradient: "from-purple-500 to-pink-500",
+              },
             ].map((f, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="cloud-panel p-8 rounded-2xl text-center hover:shadow-lg transition-shadow"
-              >
-                <div className="w-16 h-16 mx-auto bg-cyan-50 rounded-2xl flex items-center justify-center mb-6 text-cyan-500">
-                  <f.icon size={32} />
+              <motion.div key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.2 }} className="group relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="relative bg-gradient-to-b from-[#1a2332] to-[#0F1628] border border-gray-700/50 rounded-3xl p-8 hover:border-cyan-500/30 transition-all duration-300 hover:shadow-2xl hover:shadow-cyan-500/10">
+                  <div className="relative mb-6">
+                    <div className={`absolute inset-0 bg-gradient-to-r ${f.gradient} rounded-2xl opacity-20 blur-xl`} />
+                    <div className={`relative w-16 h-16 bg-gradient-to-r ${f.gradient} rounded-2xl flex items-center justify-center text-white shadow-lg`}>
+                      <f.icon size={32} />
+                    </div>
+                  </div>
+
+                  <h3 className="text-xl font-bold mb-4 text-white group-hover:text-cyan-400 transition-colors">{f.t}</h3>
+                  <p className="text-gray-300 mb-6 leading-relaxed">{f.d}</p>
+
+                  <div className="space-y-2">
+                    {f.features.map((feature, fi) => (
+                      <div key={fi} className="flex items-center gap-2 text-sm text-gray-400">
+                        <div className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                        <span>{feature}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-white">{f.t}</h3>
-                <p className="text-gray-300">{f.d}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="pricing" className="py-8">
-        <div className={contentWrapper}>
-          <h2 className="text-3xl font-bold mb-8 text-center">
-            Paket <span className="text-cyan-400">Harga Website</span>
-          </h2>
+      <section id="pricing" className="py-16 relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-900/10 to-transparent" />
+        <div className={contentWrapper + " relative z-10"}>
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-black mb-6">
+              Paket <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">Harga Website</span>
+            </h2>
+            <p className="text-gray-300 text-xl max-w-3xl mx-auto">Harga transparan untuk website profesional di Karawang</p>
+          </motion.div>
+
           <div className="grid md:grid-cols-3 gap-8 items-center">
             {db.products.length > 0
               ? db.products.map((p, i) => (
-                  <div
-                    key={p.id}
-                    className={`rounded-2xl ${
-                      i === 1 ? "p-8 bg-gradient-to-b from-blue-900/30 to-[#0F1628] border-2 border-blue-500/50 shadow-2xl shadow-blue-900/30 scale-105 relative" : "bg-gradient-to-b from-[#1a2332] to-[#0F1628] border border-gray-700/50 p-8"
-                    }`}
-                  >
+                  <motion.div key={p.id} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.2 }} className={`relative group ${i === 1 ? "scale-105" : ""}`}>
                     {i === 1 && (
-                      <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                        <div className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white text-xs font-bold px-4 py-2 rounded-full">Paling Laris</div>
+                      <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-20">
+                        <div className="bg-gradient-to-r from-purple-600 to-pink-600 text-white text-sm font-bold px-6 py-2 rounded-full shadow-lg">🔥 Paling Laris</div>
                       </div>
                     )}
-                    <h3 className={`text-xl font-bold mb-2 ${i === 1 ? "text-white" : "text-gray-300"}`}>{p.name}</h3>
-                    <div className="text-3xl font-bold mb-6 text-white">{p.price}</div>
-                    <ul className="space-y-3 mb-8 text-gray-400 text-sm">
-                      {p.features.map((f, fi) => (
-                        <li key={fi} className="flex gap-3 items-start">
-                          <CheckCircle2 size={18} className="text-green-500 mt-0.5 flex-shrink-0" />
-                          <span>{f}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    <button
-                      onClick={() => {
-                        if (i === 2) {
-                          window.open("https://wa.me/6281234567890", "_blank");
-                        } else {
-                          setModalType("product");
-                          setSelectedItem(p);
-                        }
-                      }}
-                      className={`block w-full text-center py-3 rounded-xl font-bold transition-all ${
-                        i === 1 ? "bg-gradient-to-r from-blue-600 to-cyan-600 text-white hover:from-blue-700 hover:to-cyan-700" : i === 2 ? "bg-gray-700 text-white hover:bg-gray-600" : "bg-gray-700 text-white hover:bg-gray-600"
+
+                    <div
+                      className={`relative h-full rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-2xl ${
+                        i === 1
+                          ? "bg-gradient-to-b from-purple-900/30 to-[#0F1628] border-2 border-purple-500/50 shadow-2xl shadow-purple-900/30"
+                          : "bg-gradient-to-b from-[#1a2332] to-[#0F1628] border border-gray-700/50 hover:border-cyan-500/30"
                       }`}
                     >
-                      {i === 1 ? "Paling Laris" : i === 2 ? "Kontak Kami" : "Pilih Paket"}
-                    </button>
-                  </div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-transparent to-white/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+
+                      <div className="relative p-8">
+                        <h3 className={`text-2xl font-bold mb-4 ${i === 1 ? "text-white" : "text-gray-300"} group-hover:text-cyan-400 transition-colors`}>{p.name}</h3>
+
+                        <div className="mb-8">
+                          <div className="text-4xl font-black text-white mb-2">{p.price}</div>
+                          <div className="text-sm text-gray-400">one-time payment</div>
+                        </div>
+
+                        <ul className="space-y-4 mb-8">
+                          {p.features.map((f, fi) => (
+                            <li key={fi} className="flex gap-3 items-start">
+                              <div className="w-5 h-5 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <CheckCircle2 size={14} className="text-white" />
+                              </div>
+                              <span className="text-gray-300 text-sm leading-relaxed">{f}</span>
+                            </li>
+                          ))}
+                        </ul>
+
+                        <button
+                          onClick={() => {
+                            if (i === 2) {
+                              window.open("https://wa.me/6281234567890", "_blank");
+                            } else {
+                              setModalType("product");
+                              setSelectedItem(p);
+                            }
+                          }}
+                          className={`block w-full text-center py-4 rounded-2xl font-bold transition-all duration-300 ${
+                            i === 1
+                              ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700 shadow-lg"
+                              : i === 2
+                              ? "bg-gray-700 text-white hover:bg-gray-600"
+                              : "bg-gradient-to-r from-cyan-600 to-blue-600 text-white hover:from-cyan-700 hover:to-blue-700"
+                          }`}
+                        >
+                          {i === 1 ? "🚀 Paling Laris" : i === 2 ? "💬 Kontak Kami" : "📦 Pilih Paket"}
+                        </button>
+                      </div>
+                    </div>
+                  </motion.div>
                 ))
               : // Fallback data saat database kosong
                 [
@@ -154,48 +292,72 @@ export default function HomeClient({ db }: { db: Database }) {
                   { id: "2", name: "Bisnis", price: "Rp 3 Juta", features: ["Hingga 5 Halaman", "SEO Basic Karawang", "Integrasi WhatsApp", "Analitik Google", "Revisi 3x", "Support Prioritas"] },
                   { id: "3", name: "Custom / Skripsi", price: "Rp 5 Juta", features: ["Full Sistem Database", "Fitur Komplet (Login/Admin)", "Source Code Lengkap (Skripsi)", "Dokumentasi", "Revisi 5x", "Guidance Bimbingan"] },
                 ].map((p, i) => (
-                  <div
-                    key={p.id}
-                    className={`rounded-2xl ${
-                      i === 1 ? "p-8 bg-gradient-to-b from-blue-900/30 to-[#0F1628] border-2 border-blue-500/50 shadow-2xl shadow-blue-900/30 scale-105 relative" : "bg-gradient-to-b from-[#1a2332] to-[#0F1628] border border-gray-700/50 p-8"
-                    }`}
-                  >
+                  <motion.div key={p.id} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.2 }} className={`relative group ${i === 1 ? "scale-105" : ""}`}>
                     {i === 1 && (
-                      <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                        <div className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white text-xs font-bold px-4 py-2 rounded-full">Paling Laris</div>
+                      <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-20">
+                        <div className="bg-gradient-to-r from-purple-600 to-pink-600 text-white text-sm font-bold px-6 py-2 rounded-full shadow-lg">🔥 Paling Laris</div>
                       </div>
                     )}
-                    <h3 className={`text-xl font-bold mb-2 ${i === 1 ? "text-white" : "text-gray-300"}`}>{p.name}</h3>
-                    <div className="text-3xl font-bold mb-6 text-white">{p.price}</div>
-                    <ul className="space-y-3 mb-8 text-gray-400 text-sm">
-                      {p.features.map((f, fi) => (
-                        <li key={fi} className="flex gap-3 items-start">
-                          <CheckCircle2 size={18} className="text-green-500 mt-0.5 flex-shrink-0" />
-                          <span>{f}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    <button
-                      onClick={() => {
-                        if (i === 2) {
-                          window.open("https://wa.me/6281234567890", "_blank");
-                        } else {
-                          setModalType("product");
-                          setSelectedItem(p);
-                        }
-                      }}
-                      className={`block w-full text-center py-3 rounded-xl font-bold transition-all ${
-                        i === 1 ? "bg-gradient-to-r from-blue-600 to-cyan-600 text-white hover:from-blue-700 hover:to-cyan-700" : i === 2 ? "bg-gray-700 text-white hover:bg-gray-600" : "bg-gray-700 text-white hover:bg-gray-600"
+
+                    <div
+                      className={`relative h-full rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-2xl ${
+                        i === 1
+                          ? "bg-gradient-to-b from-purple-900/30 to-[#0F1628] border-2 border-purple-500/50 shadow-2xl shadow-purple-900/30"
+                          : "bg-gradient-to-b from-[#1a2332] to-[#0F1628] border border-gray-700/50 hover:border-cyan-500/30"
                       }`}
                     >
-                      {i === 1 ? "Paling Laris" : i === 2 ? "Kontak Kami" : "Pilih Paket"}
-                    </button>
-                  </div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-transparent to-white/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+
+                      <div className="relative p-8">
+                        <h3 className={`text-2xl font-bold mb-4 ${i === 1 ? "text-white" : "text-gray-300"} group-hover:text-cyan-400 transition-colors`}>{p.name}</h3>
+
+                        <div className="mb-8">
+                          <div className="text-4xl font-black text-white mb-2">{p.price}</div>
+                          <div className="text-sm text-gray-400">one-time payment</div>
+                        </div>
+
+                        <ul className="space-y-4 mb-8">
+                          {p.features.map((f, fi) => (
+                            <li key={fi} className="flex gap-3 items-start">
+                              <div className="w-5 h-5 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <CheckCircle2 size={14} className="text-white" />
+                              </div>
+                              <span className="text-gray-300 text-sm leading-relaxed">{f}</span>
+                            </li>
+                          ))}
+                        </ul>
+
+                        <button
+                          onClick={() => {
+                            if (i === 2) {
+                              window.open("https://wa.me/6281234567890", "_blank");
+                            } else {
+                              setModalType("product");
+                              setSelectedItem(p);
+                            }
+                          }}
+                          className={`block w-full text-center py-4 rounded-2xl font-bold transition-all duration-300 ${
+                            i === 1
+                              ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700 shadow-lg"
+                              : i === 2
+                              ? "bg-gray-700 text-white hover:bg-gray-600"
+                              : "bg-gradient-to-r from-cyan-600 to-blue-600 text-white hover:from-cyan-700 hover:to-blue-700"
+                          }`}
+                        >
+                          {i === 1 ? "🚀 Paling Laris" : i === 2 ? "💬 Kontak Kami" : "📦 Pilih Paket"}
+                        </button>
+                      </div>
+                    </div>
+                  </motion.div>
                 ))}
           </div>
-          <div className="text-center mt-12">
-            <Link href="/products" className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-xl font-semibold hover:from-blue-700 hover:to-cyan-700 transition-all">
-              Lihat Semua Produk <ArrowRight size={16} />
+
+          <div className="text-center mt-16">
+            <Link
+              href="/products"
+              className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-2xl font-bold hover:from-purple-700 hover:to-pink-700 transition-all duration-300 shadow-lg hover:shadow-xl"
+            >
+              Lihat Semua Produk <ArrowRight size={20} />
             </Link>
           </div>
         </div>
