@@ -41,6 +41,11 @@ export default function SiteHeader() {
       {/* Mobile Navigation */}
       {mobileMenuOpen && (
         <div className="lg:hidden fixed inset-0 bg-[#0B1220]/95 backdrop-blur-lg z-40 pt-20">
+          {/* Close Button */}
+          <button onClick={() => setMobileMenuOpen(false)} className="absolute top-6 right-6 p-2 text-gray-300 hover:text-cyan-400 transition-colors rounded-lg hover:bg-white/10">
+            <X size={24} />
+          </button>
+
           <nav className="flex flex-col items-center gap-6 px-6">
             <a href="#beranda" className="text-xl font-medium text-gray-300 hover:text-cyan-400 transition-all duration-300" onClick={() => setMobileMenuOpen(false)}>
               Beranda
