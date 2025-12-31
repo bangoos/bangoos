@@ -29,8 +29,8 @@ export function useSettings() {
     setIsLoading(true);
     try {
       const result = await SettingsService.saveSettings(newSettings);
-      if (result.success) {
-        setSettings(newSettings);
+      if (result.success && result.data) {
+        setSettings(result.data);
       } else {
         console.error("Error saving settings:", result.error);
       }
@@ -46,8 +46,8 @@ export function useSettings() {
     setIsLoading(true);
     try {
       const result = await SettingsService.resetSettings();
-      if (result.success) {
-        setSettings(defaultSettings);
+      if (result.success && result.data) {
+        setSettings(result.data);
       } else {
         console.error("Error resetting settings:", result.error);
       }

@@ -36,31 +36,51 @@ export class SettingsService {
   }
 
   // Save settings to Supabase
-  static async saveSettings(settings: WebsiteSettings): Promise<{ success: boolean; error?: string }> {
+  static async saveSettings(settings: WebsiteSettings): Promise<{ success: boolean; error?: string; data?: WebsiteSettings }> {
     try {
-      const { error } = await supabase.from("website_settings").upsert(
-        {
-          site_title: settings.siteTitle,
-          site_description: settings.siteDescription,
-          logo_url: settings.logoUrl,
-          favicon_url: settings.faviconUrl,
-          footer_text: settings.footerText,
-          footer_links: settings.footerLinks,
-          social_media: settings.socialMedia,
-          contact_info: settings.contact,
-          updated_at: new Date().toISOString(),
-        },
-        {
-          onConflict: "id",
-        }
-      );
+      const { data, error } = await supabase
+        .from("website_settings")
+        .upsert(
+          {
+            site_title: settings.siteTitle,
+            site_description: settings.siteDescription,
+            logo_url: settings.logoUrl,
+            favicon_url: settings.faviconUrl,
+            footer_text: settings.footerText,
+            footer_links: settings.footerLinks,
+            social_media: settings.socialMedia,
+            contact_info: settings.contact,
+            updated_at: new Date().toISOString(),
+          },
+          {
+            onConflict: "id",
+          }
+        )
+        .select()
+        .single();
 
       if (error) {
         console.error("Error saving settings:", error);
         return { success: false, error: error.message };
       }
 
-      return { success: true };
+      if (!data) {
+        return { success: false, error: "No data returned after save" };
+      }
+
+      // Return the updated settings
+      const updatedSettings: WebsiteSettings = {
+        siteTitle: data.site_title,
+        siteDescription: data.site_description,
+        logoUrl: data.logo_url,
+        faviconUrl: data.favicon_url,
+        footerText: data.footer_text,
+        footerLinks: Array.isArray(data.footer_links) ? data.footer_links : defaultSettings.footerLinks,
+        socialMedia: typeof data.social_media === "object" ? data.social_media : defaultSettings.socialMedia,
+        contact: typeof data.contact_info === "object" ? data.contact_info : defaultSettings.contact,
+      };
+
+      return { success: true, data: updatedSettings };
     } catch (error) {
       console.error("Error in saveSettings:", error);
       return { success: false, error: "Unknown error occurred" };
@@ -68,9 +88,9 @@ export class SettingsService {
   }
 
   // Reset settings to default
-  static async resetSettings(): Promise<{ success: boolean; error?: string }> {
+  static async resetSettings(): Promise<{ success: boolean; error?: string; data?: WebsiteSettings }> {
     try {
-      const { error } = await supabase
+      const { data, error } = await supabase
         .from("website_settings")
         .update({
           site_title: defaultSettings.siteTitle,
@@ -83,14 +103,32 @@ export class SettingsService {
           contact_info: defaultSettings.contact,
           updated_at: new Date().toISOString(),
         })
-        .eq("id", await this.getSettingsId());
+        .eq("id", await this.getSettingsId())
+        .select()
+        .single();
 
       if (error) {
         console.error("Error resetting settings:", error);
         return { success: false, error: error.message };
       }
 
-      return { success: true };
+      if (!data) {
+        return { success: false, error: "No data returned after reset" };
+      }
+
+      // Return the updated settings
+      const updatedSettings: WebsiteSettings = {
+        siteTitle: data.site_title,
+        siteDescription: data.site_description,
+        logoUrl: data.logo_url,
+        faviconUrl: data.favicon_url,
+        footerText: data.footer_text,
+        footerLinks: Array.isArray(data.footer_links) ? data.footer_links : defaultSettings.footerLinks,
+        socialMedia: typeof data.social_media === "object" ? data.social_media : defaultSettings.socialMedia,
+        contact: typeof data.contact_info === "object" ? data.contact_info : defaultSettings.contact,
+      };
+
+      return { success: true, data: updatedSettings };
     } catch (error) {
       console.error("Error in resetSettings:", error);
       return { success: false, error: "Unknown error occurred" };
