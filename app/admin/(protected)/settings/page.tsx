@@ -1,44 +1,25 @@
 "use client";
 import { useState } from "react";
 import { Settings, Save, Upload, Globe, Image, Link2, Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin, Youtube } from "lucide-react";
+import { useSettings } from "@/hooks/useSettings";
+import { WebsiteSettings } from "@/types/settings";
 
 export default function SettingsPage() {
   const [activeTab, setActiveTab] = useState("general");
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
 
-  // Form states
-  const [siteTitle, setSiteTitle] = useState("BangOos - Digital Agency");
-  const [siteDescription, setSiteDescription] = useState("Digital agency yang menyediakan solusi teknologi modern");
-  const [logoUrl, setLogoUrl] = useState("/logo.png");
-  const [faviconUrl, setFaviconUrl] = useState("/favicon.ico");
+  const { settings, saveSettings } = useSettings();
 
-  const [footerText, setFooterText] = useState("© 2024 BangOos. All rights reserved.");
-  const [footerLinks, setFooterLinks] = useState([
-    { name: "Tentang", url: "#tentang" },
-    { name: "Layanan", url: "#layanan" },
-    { name: "Portofolio", url: "#portofolio" },
-    { name: "Blog", url: "#blog" },
-    { name: "Kontak", url: "#kontak" },
-  ]);
-
-  const [socialMedia, setSocialMedia] = useState({
-    facebook: "https://facebook.com/bangoos",
-    twitter: "https://twitter.com/bangoos",
-    instagram: "https://instagram.com/bangoos",
-    linkedin: "https://linkedin.com/company/bangoos",
-    youtube: "https://youtube.com/@bangoos",
-  });
-
-  const [contact, setContact] = useState({
-    email: "info@bangoos.com",
-    phone: "+62 812-3456-7890",
-    address: "Jakarta, Indonesia",
-  });
+  // Local form state
+  const [formData, setFormData] = useState<WebsiteSettings>(settings);
 
   const handleSave = async () => {
     setSaving(true);
     setSaved(false);
+
+    // Save to localStorage via hook
+    saveSettings(formData);
 
     // Simulate API call
     await new Promise((resolve) => setTimeout(resolve, 1500));
@@ -50,17 +31,26 @@ export default function SettingsPage() {
   };
 
   const handleAddFooterLink = () => {
-    setFooterLinks([...footerLinks, { name: "", url: "" }]);
+    setFormData({
+      ...formData,
+      footerLinks: [...formData.footerLinks, { name: "", url: "" }],
+    });
   };
 
   const handleUpdateFooterLink = (index: number, field: string, value: string) => {
-    const updated = [...footerLinks];
+    const updated = [...formData.footerLinks];
     updated[index] = { ...updated[index], [field]: value };
-    setFooterLinks(updated);
+    setFormData({
+      ...formData,
+      footerLinks: updated,
+    });
   };
 
   const handleRemoveFooterLink = (index: number) => {
-    setFooterLinks(footerLinks.filter((_, i) => i !== index));
+    setFormData({
+      ...formData,
+      footerLinks: formData.footerLinks.filter((_, i) => i !== index),
+    });
   };
 
   return (
@@ -100,8 +90,8 @@ export default function SettingsPage() {
               <label className="block text-sm font-medium text-slate-300 mb-2">Judul Website</label>
               <input
                 type="text"
-                value={siteTitle}
-                onChange={(e) => setSiteTitle(e.target.value)}
+                value={formData.siteTitle}
+                onChange={(e) => setFormData({ ...formData, siteTitle: e.target.value })}
                 className="w-full px-4 py-3 bg-slate-800/50 border border-slate-600/50 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 placeholder="Masukkan judul website"
               />
@@ -110,8 +100,8 @@ export default function SettingsPage() {
             <div>
               <label className="block text-sm font-medium text-slate-300 mb-2">Deskripsi Website</label>
               <textarea
-                value={siteDescription}
-                onChange={(e) => setSiteDescription(e.target.value)}
+                value={formData.siteDescription}
+                onChange={(e) => setFormData({ ...formData, siteDescription: e.target.value })}
                 rows={4}
                 className="w-full px-4 py-3 bg-slate-800/50 border border-slate-600/50 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                 placeholder="Masukkan deskripsi website"
@@ -128,8 +118,8 @@ export default function SettingsPage() {
               <div className="flex gap-3">
                 <input
                   type="text"
-                  value={logoUrl}
-                  onChange={(e) => setLogoUrl(e.target.value)}
+                  value={formData.logoUrl}
+                  onChange={(e) => setFormData({ ...formData, logoUrl: e.target.value })}
                   className="flex-1 px-4 py-3 bg-slate-800/50 border border-slate-600/50 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="/logo.png"
                 />
@@ -145,7 +135,7 @@ export default function SettingsPage() {
                   </div>
                   <div>
                     <p className="text-white font-medium">Logo Preview</p>
-                    <p className="text-slate-400 text-sm">{logoUrl}</p>
+                    <p className="text-slate-400 text-sm">{formData.logoUrl}</p>
                   </div>
                 </div>
               </div>
@@ -156,8 +146,8 @@ export default function SettingsPage() {
               <div className="flex gap-3">
                 <input
                   type="text"
-                  value={faviconUrl}
-                  onChange={(e) => setFaviconUrl(e.target.value)}
+                  value={formData.faviconUrl}
+                  onChange={(e) => setFormData({ ...formData, faviconUrl: e.target.value })}
                   className="flex-1 px-4 py-3 bg-slate-800/50 border border-slate-600/50 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="/favicon.ico"
                 />
@@ -177,8 +167,8 @@ export default function SettingsPage() {
               <label className="block text-sm font-medium text-slate-300 mb-2">Teks Footer</label>
               <input
                 type="text"
-                value={footerText}
-                onChange={(e) => setFooterText(e.target.value)}
+                value={formData.footerText}
+                onChange={(e) => setFormData({ ...formData, footerText: e.target.value })}
                 className="w-full px-4 py-3 bg-slate-800/50 border border-slate-600/50 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 placeholder="© 2024 BangOos. All rights reserved."
               />
@@ -192,7 +182,7 @@ export default function SettingsPage() {
                 </button>
               </div>
               <div className="space-y-3">
-                {footerLinks.map((link, index) => (
+                {formData.footerLinks.map((link: { name: string; url: string }, index: number) => (
                   <div key={index} className="flex gap-3">
                     <input
                       type="text"
@@ -222,7 +212,7 @@ export default function SettingsPage() {
         {activeTab === "social" && (
           <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {Object.entries(socialMedia).map(([platform, url]) => (
+              {Object.entries(formData.socialMedia).map(([platform, url]) => (
                 <div key={platform}>
                   <label className="block text-sm font-medium text-slate-300 mb-2 capitalize">{platform} URL</label>
                   <div className="flex gap-3">
@@ -236,7 +226,12 @@ export default function SettingsPage() {
                     <input
                       type="text"
                       value={url}
-                      onChange={(e) => setSocialMedia({ ...socialMedia, [platform]: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          socialMedia: { ...formData.socialMedia, [platform]: e.target.value },
+                        })
+                      }
                       className="flex-1 px-4 py-3 bg-slate-800/50 border border-slate-600/50 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       placeholder={`https://${platform}.com/bangoos`}
                     />
@@ -259,8 +254,13 @@ export default function SettingsPage() {
                   </div>
                   <input
                     type="email"
-                    value={contact.email}
-                    onChange={(e) => setContact({ ...contact, email: e.target.value })}
+                    value={formData.contact.email}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        contact: { ...formData.contact, email: e.target.value },
+                      })
+                    }
                     className="flex-1 px-4 py-3 bg-slate-800/50 border border-slate-600/50 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="info@bangoos.com"
                   />
@@ -275,8 +275,13 @@ export default function SettingsPage() {
                   </div>
                   <input
                     type="tel"
-                    value={contact.phone}
-                    onChange={(e) => setContact({ ...contact, phone: e.target.value })}
+                    value={formData.contact.phone}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        contact: { ...formData.contact, phone: e.target.value },
+                      })
+                    }
                     className="flex-1 px-4 py-3 bg-slate-800/50 border border-slate-600/50 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="+62 812-3456-7890"
                   />
@@ -292,8 +297,13 @@ export default function SettingsPage() {
                 </div>
                 <input
                   type="text"
-                  value={contact.address}
-                  onChange={(e) => setContact({ ...contact, address: e.target.value })}
+                  value={formData.contact.address}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      contact: { ...formData.contact, address: e.target.value },
+                    })
+                  }
                   className="flex-1 px-4 py-3 bg-slate-800/50 border border-slate-600/50 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Jakarta, Indonesia"
                 />
