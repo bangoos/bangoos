@@ -66,7 +66,7 @@ export default function HomeClient({ db }: { db: Database }) {
                 <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
               </motion.div>
 
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-black leading-tight mb-6">
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-black leading-tight mb-6">
                 <span className="text-white block mb-2">Solusi Digital</span>
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-purple-400 animate-gradient bg-300">Web Solutions</span>
               </h1>
