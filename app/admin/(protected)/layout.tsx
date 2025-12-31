@@ -19,8 +19,8 @@ export default function ProtectedAdminLayout({ children }: { children: React.Rea
       {/* Mobile Sidebar Overlay */}
       {sidebarOpen && (
         <div className="md:hidden fixed inset-0 z-40">
-          {/* Backdrop */}
-          <div className="absolute inset-0 bg-black/50 transition-opacity duration-300" onClick={() => setSidebarOpen(false)} />
+          {/* Solid Background Cover */}
+          <div className="absolute inset-0 bg-slate-950 transition-opacity duration-300" onClick={() => setSidebarOpen(false)} />
 
           {/* Mobile Sidebar */}
           <div className="fixed inset-y-0 left-0 z-50 w-72 bg-gradient-to-b from-slate-900 to-slate-800 border-r border-slate-700/50 transform transition-transform duration-300 translate-x-0">
@@ -63,8 +63,8 @@ export default function ProtectedAdminLayout({ children }: { children: React.Rea
                       <item.icon size={20} className={`${item.name === "Dashboard" ? "text-white" : "text-slate-400"} group-hover:text-white`} />
                     </div>
                     <div className="flex-1">
-                      <p className="font-medium group-hover:text-white">{item.name}</p>
-                      <p className="text-xs text-slate-500 group-hover:text-slate-400">{item.description}</p>
+                      <p className="font-medium group-hover:text-white transition-colors duration-300">{item.name}</p>
+                      <p className="text-xs text-slate-500 group-hover:text-slate-400 transition-colors duration-300">{item.description}</p>
                     </div>
                     <div className="absolute inset-0 bg-gradient-to-r from-blue-600/0 to-cyan-500/0 group-hover:from-blue-600/10 group-hover:to-cyan-500/10 transition-all duration-300"></div>
                   </Link>
