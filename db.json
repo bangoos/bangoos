@@ -26,6 +26,14 @@
       "image": "https://example.com/save-test.jpg",
       "date": "31/12/2025",
       "created_at": "2025-12-31T07:25:18.525177"
+    },
+    {
+      "id": "vercel-test-1767167554934",
+      "title": "Vercel Test Entry",
+      "slug": "vercel-test-1767167554934",
+      "content": "Testing save on Vercel deployment",
+      "image": "https://example.com/vercel-test.jpg",
+      "date": "31/12/2025"
     }
   ],
   "portfolio": [
