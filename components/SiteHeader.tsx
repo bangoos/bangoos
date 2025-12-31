@@ -40,36 +40,42 @@ export default function SiteHeader() {
 
       {/* Mobile Navigation */}
       {mobileMenuOpen && (
-        <div className="lg:hidden fixed inset-0 bg-[#0B1220]/95 backdrop-blur-lg z-40 pt-20">
-          {/* Close Button */}
-          <button onClick={() => setMobileMenuOpen(false)} className="absolute top-6 right-6 p-2 text-gray-300 hover:text-cyan-400 transition-colors rounded-lg hover:bg-white/10">
-            <X size={24} />
-          </button>
+        <div className="lg:hidden fixed inset-0 z-40">
+          {/* Backdrop */}
+          <div className="absolute inset-0 bg-black/50" onClick={() => setMobileMenuOpen(false)} />
 
-          <nav className="flex flex-col items-center gap-6 px-6">
-            <a href="#beranda" className="text-xl font-medium text-gray-300 hover:text-cyan-400 transition-all duration-300" onClick={() => setMobileMenuOpen(false)}>
-              Beranda
-            </a>
-            <a href="#layanan" className="text-xl font-medium text-gray-300 hover:text-cyan-400 transition-all duration-300" onClick={() => setMobileMenuOpen(false)}>
-              Layanan
-            </a>
-            <a href="#pricing" className="text-xl font-medium text-gray-300 hover:text-cyan-400 transition-all duration-300" onClick={() => setMobileMenuOpen(false)}>
-              Harga
-            </a>
-            <a href="#portofolio" className="text-xl font-medium text-gray-300 hover:text-cyan-400 transition-all duration-300" onClick={() => setMobileMenuOpen(false)}>
-              Portofolio
-            </a>
-            <a href="#blog" className="text-xl font-medium text-gray-300 hover:text-cyan-400 transition-all duration-300" onClick={() => setMobileMenuOpen(false)}>
-              Blog
-            </a>
-            <a
-              href="https://wa.me/6281234567890"
-              className="bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-8 py-3 rounded-full text-lg font-bold shadow-lg shadow-blue-500/20 hover:scale-105 transition-all duration-300"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Konsultasi
-            </a>
-          </nav>
+          {/* Side Drawer */}
+          <div className="absolute top-0 left-0 h-full w-80 bg-[#0B1220]/95 backdrop-blur-lg border-r border-white/10">
+            {/* Close Button */}
+            <button onClick={() => setMobileMenuOpen(false)} className="absolute top-6 right-6 p-2 text-gray-300 hover:text-cyan-400 transition-colors rounded-lg hover:bg-white/10">
+              <X size={24} />
+            </button>
+
+            <nav className="flex flex-col items-center gap-6 px-6 pt-20">
+              <a href="#beranda" className="text-xl font-medium text-gray-300 hover:text-cyan-400 transition-all duration-300" onClick={() => setMobileMenuOpen(false)}>
+                Beranda
+              </a>
+              <a href="#layanan" className="text-xl font-medium text-gray-300 hover:text-cyan-400 transition-all duration-300" onClick={() => setMobileMenuOpen(false)}>
+                Layanan
+              </a>
+              <a href="#pricing" className="text-xl font-medium text-gray-300 hover:text-cyan-400 transition-all duration-300" onClick={() => setMobileMenuOpen(false)}>
+                Harga
+              </a>
+              <a href="#portofolio" className="text-xl font-medium text-gray-300 hover:text-cyan-400 transition-all duration-300" onClick={() => setMobileMenuOpen(false)}>
+                Portofolio
+              </a>
+              <a href="#blog" className="text-xl font-medium text-gray-300 hover:text-cyan-400 transition-all duration-300" onClick={() => setMobileMenuOpen(false)}>
+                Blog
+              </a>
+              <a
+                href="https://wa.me/6281234567890"
+                className="bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-8 py-3 rounded-full text-lg font-bold shadow-lg shadow-blue-500/20 hover:scale-105 transition-all duration-300"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Konsultasi
+              </a>
+            </nav>
+          </div>
         </div>
       )}
     </header>
