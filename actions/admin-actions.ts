@@ -214,7 +214,18 @@ async function saveByType(formData: FormData, type: "blog" | "portfolio" | "prod
     }
 
     console.log("Database saved and revalidated paths:", paths);
-    return { message: "Data Disimpan" };
+
+    // Add specific success message based on type
+    let successMessage = "Data Disimpan";
+    if (type === "blog") {
+      successMessage = "✅ Blog post berhasil disimpan!";
+    } else if (type === "portfolio") {
+      successMessage = "✅ Portfolio item berhasil disimpan!";
+    } else if (type === "products") {
+      successMessage = "✅ Produk berhasil disimpan!";
+    }
+
+    return { message: successMessage };
   } catch (e) {
     console.error(e);
     return { error: "Gagal menyimpan" };
@@ -256,7 +267,18 @@ export async function deleteItem(...args: any[]) {
     }
 
     console.log("Database updated (deleted) and revalidated paths:", paths);
-    return { message: "Data dihapus" };
+
+    // Add specific success message based on type
+    let successMessage = "Data dihapus";
+    if (type === "blog") {
+      successMessage = "✅ Blog post berhasil dihapus!";
+    } else if (type === "portfolio") {
+      successMessage = "✅ Portfolio item berhasil dihapus!";
+    } else if (type === "products") {
+      successMessage = "✅ Produk berhasil dihapus!";
+    }
+
+    return { message: successMessage };
   } catch (e) {
     console.error("Gagal menghapus item", e);
     return { error: "Gagal menghapus data" };
