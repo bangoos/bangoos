@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { supabase, supabaseService } from "@/lib/supabase";
-import { getDatabase } from "@/lib/vercel-blob";
+import { getDatabase, saveDatabase, deleteBlogPost, deletePortfolioItem, deleteProduct } from "@/lib/supabase-database";
 
 // Better ID generation function
 function generateId(prefix: string = ""): string {
@@ -198,38 +198,12 @@ async function saveByType(formData: FormData, type: "blog" | "portfolio" | "prod
       });
     }
 
-    // Save to local file for now (fallback until Supabase tables are created)
+    // Save using supabase-database (includes Supabase + local backup)
     try {
-      const fs = require("fs").promises;
-      const path = require("path");
-      const LOCAL_DB_PATH = path.join(process.cwd(), "db.json");
-
-      // Write to local file
-      await fs.writeFile(LOCAL_DB_PATH, JSON.stringify(db, null, 2));
-      console.log("Data saved to local file:", LOCAL_DB_PATH);
-
-      // If Supabase is available, also try to save there
-      if (supabase) {
-        try {
-          if (type === "blog" && db.blog.length > 0) {
-            const newBlog = db.blog[db.blog.length - 1];
-            const { error } = await supabase.from("blog").insert([newBlog]);
-            if (error) console.warn("Supabase save failed:", error);
-          } else if (type === "portfolio" && db.portfolio.length > 0) {
-            const newPortfolio = db.portfolio[db.portfolio.length - 1];
-            const { error } = await supabase.from("portfolio").insert([newPortfolio]);
-            if (error) console.warn("Supabase save failed:", error);
-          } else if (type === "products" && db.products.length > 0) {
-            const newProduct = db.products[db.products.length - 1];
-            const { error } = await supabase.from("products").insert([newProduct]);
-            if (error) console.warn("Supabase save failed:", error);
-          }
-        } catch (supabaseError) {
-          console.warn("Supabase save error:", supabaseError);
-        }
-      }
+      await saveDatabase(db);
+      console.log("Data saved using supabase-database functions");
     } catch (saveError) {
-      console.error("Failed to save data:", saveError);
+      console.error("Failed to save database:", saveError);
       return { error: "Gagal menyimpan data" };
     }
 
@@ -263,36 +237,17 @@ export async function deleteItem(...args: any[]) {
   try {
     const type = fd.get("type") as "blog" | "portfolio" | "products";
     const id = fd.get("id") as string;
-    const db = await getDatabase();
 
-    if (type === "blog") db.blog = db.blog.filter((i) => i.id !== id);
-    else if (type === "portfolio") db.portfolio = db.portfolio.filter((i) => i.id !== id);
-    else if (type === "products") db.products = db.products.filter((i) => i.id !== id);
-
-    // Save updated database to local file
-    try {
-      const fs = require("fs").promises;
-      const path = require("path");
-      const LOCAL_DB_PATH = path.join(process.cwd(), "db.json");
-
-      // Write updated database to local file
-      await fs.writeFile(LOCAL_DB_PATH, JSON.stringify(db, null, 2));
-      console.log("Database updated (deleted) and saved to:", LOCAL_DB_PATH);
-
-      // Also try to delete from Supabase if available
-      if (supabase) {
-        try {
-          const { error } = await supabase.from(type).delete().eq("id", id);
-          if (error) console.warn("Supabase delete failed:", error);
-          else console.log("Item deleted from Supabase successfully");
-        } catch (supabaseError) {
-          console.warn("Supabase delete error:", supabaseError);
-        }
-      }
-    } catch (saveError) {
-      console.error("Failed to save database after deletion:", saveError);
-      return { error: "Gagal menyimpan perubahan" };
+    // Use supabase-database delete functions
+    if (type === "blog") {
+      await deleteBlogPost(id);
+    } else if (type === "portfolio") {
+      await deletePortfolioItem(id);
+    } else if (type === "products") {
+      await deleteProduct(id);
     }
+
+    console.log(`Item deleted from Supabase: ${type}/${id}`);
 
     // Force revalidate all paths to ensure immediate updates
     const paths = ["/", "/admin", "/blog", "/portofolio", "/products"];

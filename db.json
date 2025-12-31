@@ -1,14 +1,74 @@
 {
   "blog": [
     {
+      "id": "db-test-1767167217489",
+      "title": "Database Function Test",
+      "slug": "db-function-test-1767167217489",
+      "content": "Testing saveDatabase function",
+      "image": "https://example.com/db-test.jpg",
+      "date": "31/12/2025",
+      "created_at": "2025-12-31T07:46:57.349537"
+    },
+    {
+      "id": "blog-test-1767167216694",
+      "title": "Test Blog Save",
+      "slug": "test-blog-save-1767167216694",
+      "content": "Test content for blog save operation",
+      "image": "https://example.com/blog-test.jpg",
+      "date": "31/12/2025",
+      "created_at": "2025-12-31T07:46:56.490949"
+    },
+    {
       "id": "save-test-1767165918955",
       "title": "Save Test Entry",
       "slug": "save-test-1767165918955",
       "content": "Test content for save function",
       "image": "https://example.com/save-test.jpg",
-      "date": "31/12/2025"
+      "date": "31/12/2025",
+      "created_at": "2025-12-31T07:25:18.525177"
     }
   ],
-  "portfolio": [],
-  "products": []
+  "portfolio": [
+    {
+      "id": "db-portfolio-test-1767167217489",
+      "title": "DB Portfolio Test",
+      "description": "Testing portfolio save via database function",
+      "category": "UMKM",
+      "image": "https://example.com/db-portfolio-test.jpg",
+      "slug": "db-portfolio-test-1767167217489",
+      "created_at": "2025-12-31T07:46:57.528938"
+    },
+    {
+      "id": "portfolio-test-1767167217020",
+      "title": "Test Portfolio Save",
+      "description": "Test portfolio description",
+      "category": "UMKM",
+      "image": "https://example.com/portfolio-test.jpg",
+      "slug": "test-portfolio-1767167217020",
+      "created_at": "2025-12-31T07:46:56.641397"
+    }
+  ],
+  "products": [
+    {
+      "id": "db-product-test-1767167217489",
+      "name": "DB Product Test",
+      "price": "Rp 2 Juta",
+      "features": [
+        "DB Test Feature 1",
+        "DB Test Feature 2"
+      ],
+      "created_at": "2025-12-31T07:46:57.704111"
+    },
+    {
+      "id": "product-test-1767167217130",
+      "name": "Test Product Save",
+      "price": "Rp 1 Juta",
+      "features": [
+        "Feature 1",
+        "Feature 2",
+        "Feature 3"
+      ],
+      "created_at": "2025-12-31T07:46:56.747266"
+    }
+  ]
 }
