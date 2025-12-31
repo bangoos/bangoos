@@ -12,6 +12,7 @@ export default function ProtectedAdminLayout({ children }: { children: React.Rea
     { name: "Blog", href: "/admin/blog", icon: FileText, description: "Kelola artikel" },
     { name: "Portofolio", href: "/admin/portofolio", icon: ImageIcon, description: "Kelola portfolio" },
     { name: "Produk", href: "/admin/products", icon: Package, description: "Kelola produk" },
+    { name: "Settings", href: "/admin/settings", icon: Settings, description: "Pengaturan website" },
   ];
 
   return (
